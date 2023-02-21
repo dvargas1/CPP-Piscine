@@ -3,34 +3,38 @@
 #include <string>
 #include <regex>
 
+Contact::Contact()
+{
+	return;
+}
+
+Contact::~Contact()
+{
+	return;
+}
+
 int Contact::ParseString(std::string str){
-	std::regex patern("^[a-zA-Z0-9]*$");
 	if(str.empty()){
 		std::cout<< "The string cant be empty"<<std::endl;
 		return(1);
 	}
-	else if(std::regex_match(str,patern)){
-		std::cout<<"this should contain alphanumerical characters only"<<std::endl;
+	for(std::string::size_type i = 0; i < str.size(); i++){
+		if(std::isalpha(str[i]) == 0){
+			std::cout<<"this should contain alphanumerical characters only"<<std::endl;
 		return(1);
+		}
 	}
 	return(0);
 }
 
-void Contact::PrintProperly(std::string id, std::string str){
-
-	std::cout << id << '\n';
-	for(int i = 0; i <= 9; i++)
-		std::cout<<str[i];
-	std::cout<<std::endl;
-}
-
 void Contact::PrintInfo(){
-	Contact::PrintProperly("First Name = ", this->RetFirstName());
-	Contact::PrintProperly("Last Name = ", this->RetLastName());
-	Contact::PrintProperly("Nick Name = ", this->RetNickName());
-	Contact::PrintProperly("Phone Number = ", this->RetPhoneNumber());
-	Contact::PrintProperly("Secret = ", this->RetSecret());
+	std::cout<<"First Name = "<< this->RetFirstName()<<std::endl;
+	std::cout<<"Last Name = "<<this->RetLastName()<<std::endl;
+	std::cout<<"Nick Name = "<<this->RetNickName()<<std::endl;
+	std::cout<<"Phone Number = "<<this->RetPhoneNumber()<<std::endl;
+	std::cout<<"Secret = "<<this->RetSecret()<<std::endl;
 }
+
 int Contact::SetFirstName(std::string str){
 	if(Contact::ParseString(str) == 1)
 		return(1);
@@ -50,14 +54,17 @@ int Contact::SetNickName(std::string str){
 	return(0);
 }
 int Contact::SetPhoneNumber(std::string str){
-	std::regex patern("^[0-9]+$");
 	if(str.empty()){
 		std::cout<< "The string cant be empty"<<std::endl;
 		return(1);
 	}
-	else if(std::regex_match(str,patern)){
-		std::cout<<"this should contain numbers only"<<std::endl;
-		return(1);
+	for(int i = 0; i != '\0'; i++)
+	{
+		if(std::isalpha(str[i]) == 0)
+		{
+			std::cout<<"this should contain alphanumerical characters only"<<std::endl;
+			return(1);
+		}
 	}
 	this->PhoneNumber = str;
 	return(0);

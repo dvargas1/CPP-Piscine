@@ -11,11 +11,10 @@ private:
 	std::string PhoneNumber;
 	std::string Secret;
 	int	ParseString(std::string str);
-	void PrintProperly(std::string id, std::string str);
 public:
 	Contact(void);
 	~Contact(void);
-	void PrintInfo();
+	void PrintInfo(void);
 	int SetFirstName(std::string str);
 	int SetLastName(std::string str);
 	int SetNickName(std::string str);
