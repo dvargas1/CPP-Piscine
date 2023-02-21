@@ -4,7 +4,7 @@
 #include <string>
 #include "phonebook.class.hpp"
 
-PhoneBook::PhoneBook(void): i(0)
+PhoneBook::PhoneBook(void): i(-1)
 {
 	return;
 }
@@ -60,7 +60,7 @@ int PhoneBook::ParseIndex(std::string input){
 	int index;
 	if(input.length() > 1 || std::isalnum(input[0]))
 		return(-42);
-	index = std::stoi(input);
+	index = input[0] - '0';
 	if(index > 8 || index < 0)
 		return(-42);
 	return(index);
