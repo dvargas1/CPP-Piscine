@@ -1,7 +1,7 @@
-#include <cctype>
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <cstdlib>
 #include "phonebook.class.hpp"
 
 PhoneBook::PhoneBook(void): i(-1)
@@ -15,12 +15,15 @@ PhoneBook::~PhoneBook(void)
 
 void PhoneBook::IndexPlusPlus(int& i){
 	i++;
-	if(i > 8)
-		i = 8;
+	if(i > 7)
+		i = 0;
 }
 
 void PhoneBook::PrintTable(){
-	std::cout<<"Menu lindo 2"<<std::endl;
+	std::cout<<"|           SEARCH TABLE INFORMATION        |"<<std::endl;
+	PrintDash();
+	std::cout<<"|     INDEX|FIRST NAME| LAST NAME|  NICKNAME|"<<std::endl;
+	PrintDash();
 	for(int i = 0; i < 8; i++){
 		PrintContact(i);
 	}
@@ -37,11 +40,11 @@ void PhoneBook::PrintLine(std::string str){
 }
 
 void PhoneBook::PrintDash(){
-	std::cout<<"-------------------------------------------------------------------"<<std::endl;
+	std::cout<<"----------------------------------------------"<<std::endl;
 }
 
 void PhoneBook::PrintContactByIndex(int i){
-	std::cout<<"Here are the information from the index" << i << std::endl;
+	std::cout<<std::endl<<"| Here are the information from the index {" << i <<"}"<< std::endl;
 	this->ContactList[i].PrintInfo();
 	std::cout<<std::endl;
 }
@@ -51,14 +54,13 @@ void PhoneBook::PrintContact(int i){
 	PrintLine(this->ContactList[i].RetFirstName());
 	PrintLine(this->ContactList[i].RetLastName());
 	PrintLine(this->ContactList[i].RetNickName());
-	PrintLine(this->ContactList[i].RetPhoneNumber());
 	std::cout<<std::endl;
 	PrintDash();
 }
 
 int PhoneBook::ParseIndex(std::string input){
 	int index;
-	if(input.length() > 1 || std::isalnum(input[0]))
+	if(input.length() > 1 || std::isalnum(input[0]) == 0)
 		return(-42);
 	index = input[0] - '0';
 	if(index > 8 || index < 0)
@@ -72,18 +74,20 @@ int PhoneBook::SearchInList(){
 
 	if (i == -1)
 	{
-		std::cout << "First you need to add something on the list";
-		return(1);
+		std::cout << "| First you need to add something on the list, use the \"ADD\" command"<<std::endl;
+		return(-42);
 	}
-	std::cout<<"Choose an index to show detail information"<<std::endl;
+	PrintTable();
+	std::cout<<"| Choose an index to show detail information"<<std::endl;
 	std::getline(std::cin, input);
 	if(ParseIndex(input) == -42)
-		return(1);
-	index = ParseIndex(input);
+		return(-42);
+	index = input[0] - '0';
+	if(this->ContactList[index].RetEmpty() == 0){
+		std::cout<<"| Sorry, this position is empty"<<std::endl;
+		return(-42);
+	}
 	PrintContactByIndex(index);
-	
-
-	PrintContact(1);
 	return(0);
 }
 
@@ -94,27 +98,60 @@ int PhoneBook::AddInList(void)
 	std::string NickName;
 	std::string PhoneNumber;
 	std::string Secret;
-	
+
+	std::cout<<"| Please use printable characters only,in the phone number we accept numbers only"<<std::endl;
 	IndexPlusPlus(i);
-	std::cout<<"Type the First Name"<<std::endl<<">";
+	while(1){
+	std::cout<<"| Type the First Name"<<std::endl;
 	std::getline(std::cin, FirstName);
-	if(this->ContactList[i].SetFirstName(FirstName) == 1)
-		return(1);
-	std::cout<<"Type the Last Name"<<std::endl<<">";
-	std::getline(std::cin, FirstName);
-	if(this->ContactList[i].SetLastName(FirstName) == 1)
-		return(1);
-	std::cout<<"Type the Nick Name"<<std::endl<<">";
-	std::getline(std::cin, FirstName);
-	if(this->ContactList[i].SetNickName(FirstName) == 1)
-		return(1);
-	std::cout<<"Type the Phone Number"<<std::endl<<">";
-	std::getline(std::cin, FirstName);
-	if(this->ContactList[i].SetPhoneNumber(FirstName) == 1)
-		return(1);
-	std::cout<<"Type the Secret"<<std::endl<<">";
-	std::getline(std::cin, FirstName);
-	if(this->ContactList[i].SetSecret(FirstName) == 1)
-		return(1);
+	if(this->ContactList[i].SetFirstName(FirstName) == 0)
+		break;
+	}
+	while(1){
+	std::cout<<"| Type the Last Name"<<std::endl;
+	std::getline(std::cin, LastName);
+	if(this->ContactList[i].SetLastName(LastName) == 0)
+		break;
+	}
+	while(1){
+	std::cout<<"| Type the Nick Name"<<std::endl;
+	std::getline(std::cin, NickName);
+	if(this->ContactList[i].SetNickName(NickName) == 0)
+		break;
+	}
+	while(1){
+	std::cout<<"| Type the Phone Number"<<std::endl;
+	std::getline(std::cin, PhoneNumber);
+	if(this->ContactList[i].SetPhoneNumber(PhoneNumber) == 0)
+		break;
+	}
+	while(1){
+	std::cout<<"| Type the Darkest Secret"<<std::endl;
+	std::getline(std::cin, Secret);
+	if(this->ContactList[i].SetSecret(Secret) == 0)
+		break;
+	}
+	this->ContactList[i].SetEmpty();
 	return(0);
+}
+
+void PhoneBook::WelcomeMessage(void){
+		PrintDash();
+		std::cout<< "---Welcome to this incredible new tecnology THE PHONEBOOK!---"<<std::endl;
+		std::cout<<"| this beautiful Phonebook works with 3 commands(all in caps please)"<<std::endl;
+		std::cout<<"| ADD -> You can insert contacts and informations"<<std::endl;
+		std::cout<<"| SEARCH -> You can search for contacts and show their informations"<<std::endl;
+		std::cout<<"| EXIT -> You leave the program and the contacts are lost forever"<<std::endl;
+		std::cout<<"| Any bugs you find can be reported to wewillignorethis@phonebook.co"<<std::endl;
+		std::cout<<"| Have Fun !"<<std::endl;
+		PrintDash();
+}
+
+void PhoneBook::HelpMessage(void){
+	PrintDash();
+	std::cout<<"| You have 3 command options, please choose one"<<std::endl;
+	std::cout<<"| ADD -> You can insert contacts and informations"<<std::endl;
+	std::cout<<"| SEARCH -> You can search for contacts and show their informations"<<std::endl;
+	std::cout<<"| EXIT -> You leave the program and the contacts are lost forever"<<std::endl;
+	PrintDash();
 }

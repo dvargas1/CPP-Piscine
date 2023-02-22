@@ -15,11 +15,13 @@ public:
 	int		AddInList(void);
 	int		SearchInList(void);
 	int		ParseIndex(std::string input);
-	void	PrintDash(void);
+	static void	PrintDash(void);
 	void	PrintLine(std::string str);
 	void	PrintContact(int i);
 	void	PrintContactByIndex(int i);
 	void	PrintTable(void);
+	static void	WelcomeMessage(void);
+	static void HelpMessage(void);
 };
 
 

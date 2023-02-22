@@ -10,11 +10,14 @@ private:
 	std::string NickName;
 	std::string PhoneNumber;
 	std::string Secret;
+	int		IsEmpty;
 	int	ParseString(std::string str);
 public:
 	Contact(void);
 	~Contact(void);
 	void PrintInfo(void);
+	int RetEmpty(void);
+	void	SetEmpty(void);
 	int SetFirstName(std::string str);
 	int SetLastName(std::string str);
 	int SetNickName(std::string str);
