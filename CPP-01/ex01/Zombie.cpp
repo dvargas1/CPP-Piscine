@@ -1,14 +1,19 @@
 #include "Zombie.hpp"
 
 Zombie::Zombie() : Name("") {}
-Zombie::Zombie(std::string name) : Name(name) {}
+Zombie::Zombie(std::string name) : Name(name) {
+	std::cout<<"constructor running"<<std::endl;
+}
 Zombie::~Zombie()
 {
-	std::cout<< Name << " aaaaaa is going down"<< std::endl;
+	std::cout<< Name << " is going down"<< std::endl;
 }
 
-void Zombie::announce()
-{
+void Zombie::SetName(std::string name){
+	this->Name = name;
+}
+
+void Zombie::announce(){
 	std::cout<< Name <<": BraiiiiiiinnnzzzZ..."<<std::endl;
 	return;
 }
