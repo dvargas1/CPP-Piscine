@@ -1,11 +1,11 @@
-NAME	= PhoneBook
+NAME	= MoreBrainz
 
-CC		= c++
+CC		= g++
 CFLAGS	= -Werror -Wextra -Wall -std=c++98
 
 SRC		= main.cpp \
-		  phonebook.class.cpp \
-		  contact.class.cpp
+		  zombieHorde.cpp \
+		  Zombie.cpp
 OBJ		= $(SRC:.cpp=.o)
 
 all: $(NAME)

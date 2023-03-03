@@ -61,10 +61,10 @@ void PhoneBook::PrintContact(int i){
 int PhoneBook::ParseIndex(std::string input){
 	int index;
 	if(input.length() > 1 || std::isalnum(input[0]) == 0)
-		return(-42);
-	index = input[0] - '0';
-	if(index > 8 || index < 0)
-		return(-42);
+		return(std::cout<<"| Please choose a valid index number"<<std::endl, -42);
+	index = atoi(input.c_str());
+	if(index > 7 || index < 0)
+		return(std::cout<<"| Please choose a valid index number"<<std::endl, -42);
 	return(index);
 }
 
@@ -82,7 +82,7 @@ int PhoneBook::SearchInList(){
 	std::getline(std::cin, input);
 	if(ParseIndex(input) == -42)
 		return(-42);
-	index = input[0] - '0';
+	index = atoi(input.c_str());
 	if(this->ContactList[index].RetEmpty() == 0){
 		std::cout<<"| Sorry, this position is empty"<<std::endl;
 		return(-42);

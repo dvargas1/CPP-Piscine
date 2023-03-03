@@ -28,5 +28,4 @@ int main()
 	}
 	std::cout<<"Thanks, THATS ALL FOLKS !"<<std::endl;
 	return(0);
-
 }
