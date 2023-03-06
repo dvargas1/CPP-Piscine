@@ -16,12 +16,11 @@
 #include <iostream>
 
 class Harl{
-	typedef void(Harl::*Func)(void);
 public:
+	typedef void(Harl::*Func)(void);
 	Harl(void);
 	~Harl(void);
 	void complain(std::string level);
-	void exemplo();
 private:
 	void debug(void);
 	void info(void);

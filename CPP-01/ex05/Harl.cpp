@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "Harl.hpp"
-#include <cstdlib>
 
 Harl::Harl(){
 	automate[0] = &Harl::debug;
@@ -22,24 +21,30 @@ Harl::Harl(){
 Harl::~Harl(){}
 
 void Harl::complain(std::string level){
-	int i = atoi(level.c_str());
-	Func a = automate[i];
+	std::string PossibleLevels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	int index = -42;
+	for(int i = 0; i < 4; i++){
+		if(PossibleLevels[i] == level)
+			index = i;
+	}
+	if(index < 0){
+		std::cout<< "DEU RUIM, CORRE QUE O HARL TA PUTO !"<< std::endl;
+		return;
+	}
+	Func a = automate[index];
 	Harl h;
 	(h.*a)();
 }
 
 void Harl::debug(void){
-	std::cout<<"debug msg"<<std::endl;
+	std::cout<<"I love having extra bacon for my 7XL-double-cheese-triple-pickle-specialketchup burger. I really do!"<<std::endl;
 }
 void Harl::info(void){
-	std::cout<<"info msg"<<std::endl;
-
+	std::cout<<"I cannot believe adding extra bacon costs more money. You didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!"<<std::endl;
 }
 void Harl::warning(void){
-	std::cout<<"warning msg"<<std::endl;
-
+	std::cout<<"I think I deserve to have some extra bacon for free. I’ve been coming for years whereas you started working here since last month."<<std::endl;
 }
 void Harl::error(void){
-	std::cout<<"error msg"<<std::endl;
-
+	std::cout<<"This is unacceptable! I want to speak to the manager now."<<std::endl;
 }
