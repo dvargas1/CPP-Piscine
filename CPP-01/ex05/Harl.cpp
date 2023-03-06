@@ -32,8 +32,7 @@ void Harl::complain(std::string level){
 		return;
 	}
 	Func a = automate[index];
-	Harl h;
-	(h.*a)();
+	(this->*a)();
 }
 
 void Harl::debug(void){
