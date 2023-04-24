@@ -14,7 +14,6 @@
 #define CONTACT_CLASS
 #include <iostream>
 #include <string>
-#include "Interface.hpp"
 
 class Contact {
 public:

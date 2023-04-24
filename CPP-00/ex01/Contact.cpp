@@ -19,7 +19,7 @@ bool Contact::ParseString(std::string String){
 	if(String.empty())
 		return false;
 	for(size_t i = 0; i < String.size(); i++){
-		if(std::isprint(String[i]))
+		if(!std::isprint(String[i]))
 			return false;
 		}
 	return true;
@@ -40,15 +40,15 @@ bool Contact::SetLastName(std::string LastName){
 }
 bool Contact::SetNickName(std::string Nickname){
 	if(!ParseString(Nickname))
-	return(false);
+		return(false);
 	this->NickName = Nickname;
 	return true;
 }
 
 bool Contact::SetPhoneNumber(std::string PhoneNumber){
 	for(size_t i = 0; i < PhoneNumber.size(); i++){
-		if(std::isdigit(PhoneNumber[i]))
-			return(false);
+		if(!std::isdigit(PhoneNumber[i]))
+			return false;
 	}
 	this->PhoneNumber = PhoneNumber;
 	return true;
@@ -60,7 +60,6 @@ bool Contact::SetSecret(std::string Secret){
 	this->Secret = Secret;
 	return true;
 }
-
 
 std::string Contact::GetName(void) {return this->Name;}
 std::string Contact::GetLastName(void) {return this->LastName;}

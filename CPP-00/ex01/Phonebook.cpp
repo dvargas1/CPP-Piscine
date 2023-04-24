@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "Phonebook.hpp"
-#include <iostream>
+#include "Interface.hpp"
 
-PhoneBook::PhoneBook(){	i = 0;}
+PhoneBook::PhoneBook(){	i = 0; }
 PhoneBook::~PhoneBook(){}
 
 Contact PhoneBook::GetContact(int i)
@@ -24,7 +24,6 @@ Contact PhoneBook::GetContact(int i)
 void PhoneBook::AddinList(Contact c)
 {
 	this->list[this->i] = c;
-	if(i = 8)
-		return;
-	this->i++;
+	if(i != 7)
+		this->i++;
 }

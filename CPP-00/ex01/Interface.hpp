@@ -12,20 +12,22 @@
 
 #ifndef INTERFACE_CLASS
 #define INTERFACE_CLASS
+#include "Phonebook.hpp"
 #include <iostream>
 #include <iomanip>
-#include "Contact.hpp"
-#include "Phonebook.hpp"
 
 class Interface{
+
 public:
-    bool CreateContact(PhoneBook &PhoneBook);
-    void PrintContact(PhoneBook &PhoneBook);
+    Interface(void);
+    ~Interface(void);
+    bool CreateContact(PhoneBook & Book);
+    void PrintContact(PhoneBook & Book, int i, int flag);
     void HelpMessage(void);
     void WelcomeMessage(void);
     void PrintLine(std::string str);
-    void PrintAllContact(void);
-    void PrintTable(void);
+    void PrintAllContact(PhoneBook & PhoneBook);
+    void PrintSeparator(void);
 };
 
 #endif

@@ -15,7 +15,7 @@
 Interface::Interface(){};
 Interface::~Interface(){};
 
-bool Interface::CreateContact(PhoneBook &PhoneBook)
+bool Interface::CreateContact(PhoneBook & Book)
 {
 	//TODO -> logica para deixar legivel pfvr.
 	Contact c;
@@ -33,15 +33,15 @@ bool Interface::CreateContact(PhoneBook &PhoneBook)
 	std::getline(std::cin, input);
 	if(!c.SetNickName(input))
 		return false;
-	if(!c.SetPhoneNumber(input))
 	std::cout << "Contact PhoneNumber:"<<std::endl;
 	std::getline(std::cin, input);
+	if(!c.SetPhoneNumber(input))
 		return false;
 	std::cout << "Contact Secret:"<<std::endl;
 	std::getline(std::cin, input);
 	if(!c.SetSecret(input))
 		return false;
-	PhoneBook.AddinList(c);
+	Book.AddinList(c);
 	return true;
 }
 
@@ -54,20 +54,40 @@ void Interface::PrintLine(std::string str){
 	return;
 }
 
-void Interface::PrintContact(PhoneBook & PhoneBook)
+void Interface::PrintSeparator(void){
+	std::cout<<"----------------------------------"<<std::endl;
+}
+
+void Interface::PrintAllContact(PhoneBook & PhoneBook)
 {
 	std::string index;
 
+	for (int i = 0; i < 8; i++)
+		PrintContact(PhoneBook, i, 0);
+
 	std::cout<<"Type the index you want to print"<<std::endl;
 	std::getline(std::cin, index);
+	//TODO CONCERTAR ESSA MALDITA ISALNUM;
+	if(index.empty() || !std::isdigit(index[0]))
+		return;
 	int i = atoi(index.c_str());
 	if(i < 0 || i > 7){
 		std::cout<<"Bad index"<<std::endl;
 		return;}
-	Contact c = PhoneBook.GetContact(i);
+	PrintSeparator();
+	PrintContact(PhoneBook, i - 1, 1);
+}
+
+void Interface::PrintContact(PhoneBook & Book, int i, int flag)
+{
+	Contact c = Book.GetContact(i);
+	std::cout<<"|"<<std::setw(10)<<i+1<<"|";
 	PrintLine(c.GetName());
 	PrintLine(c.GetLastName());
 	PrintLine(c.GetNickName());
 	PrintLine(c.GetPhoneNumber());
-	PrintLine(c.GetSecret());
+	if(flag == 1)
+		PrintLine(c.GetSecret());
+	std::cout<<std::endl;
 }
+

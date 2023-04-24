@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Phonebook.hpp"
 #include "Interface.hpp"
-#include "Contact.hpp"
 
 int main()
 {
@@ -29,10 +27,9 @@ int main()
         else if(input =="ADD")
             Interface.CreateContact(PhoneBook);
         else if(input == "SEARCH")
-            Interface.ShowContacts();
+            Interface.PrintAllContact(PhoneBook);
         else
             std::cout <<"Invalid input" <<std::endl;
     }
     return 0;
-
 }
