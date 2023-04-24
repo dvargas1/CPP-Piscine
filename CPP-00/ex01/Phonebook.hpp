@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   Phonebook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 08:19:49 by dvargas           #+#    #+#             */
-/*   Updated: 2023/03/06 08:19:50 by dvargas          ###   ########.fr       */
+/*   Created: 2023/04/24 07:19:20 by dvargas           #+#    #+#             */
+/*   Updated: 2023/04/24 07:19:20 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PHONEBOOK_CLASS
+#define PHONEBOOK_CLASS
 #include <iostream>
+#include "Contact.hpp"
 
-void ft_putstr(char *str){
-	int i = -1;
-	
-	while(str[++i] != '\0')
-		std::cout<<(char)toupper(str[i]);
-}
+class PhoneBook{
+public:
+    PhoneBook(void);
+    ~PhoneBook(void);
+    void AddinList(contact & c);
+    void SearchContact(int i);
 
-int main(int argc, char **argv){
-	int i = 0;
-
-	if(argc == 1)
-		std::cout<<"* LOUD AND UNBEARABLE FEEDBACK NOISE *";
-	else
-		while(++i<argc)
-			ft_putstr(argv[i]);
-	std::cout<<std::endl;
+private:
+    Contact list[8];
+    int i;
 }

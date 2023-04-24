@@ -10,34 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.class.hpp"
-#include <iostream>
+#include "Phonebook.hpp"
+#include "Interface.hpp"
+#include "Contact.hpp"
 
 int main()
 {
-	PhoneBook list;
-	std::string tmp;
+    Interface   Interface;
+    PhoneBook   PhoneBook;
+	std::string input;
 
-	PhoneBook::WelcomeMessage();
-	while(1){
-		std::cout<<"| Please enter a command (all in caps)"<<std::endl;
-		std::getline(std::cin, tmp);
-		if(tmp == "EXIT")
-			break;
-		else if (tmp == "ADD"){
-			if(list.AddInList() == 1)
-				break;
-		}
-		else if (tmp == "SEARCH"){
-			if(list.SearchInList() == 1)
-				break;
-		}
-		else if (tmp == "HELP")
-			PhoneBook::HelpMessage();
-		else{
-			std::cout<<"|ERROR - Invalid input, if you need help, type \"HELP\""<<std::endl;
-		}
-	}
-	std::cout<<"Thanks, THATS ALL FOLKS !"<<std::endl;
-	return(0);
+    while (1)
+    {
+        std::cout <<"Enter a valid allcaps input please"<<std::endl;
+        std::getline(std::cin, input);
+        if(input = "EXIT")
+            break;
+        else if(intpu = "ADD")
+            Interface.CreateContact();
+        else if(input = "SEARCH")
+            Interface.ShowContacts();
+        else
+            std::cout <<"Invalid input" <<std::endl;
+    }
+    return 0;
+
 }
