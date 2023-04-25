@@ -20,16 +20,19 @@ int main()
 
     while (1)
     {
-        std::cout <<"Enter a valid allcaps input please"<<std::endl;
+        std::cout <<"Type an input ->";
         std::getline(std::cin, input);
         if(input == "EXIT")
             break;
-        else if(input =="ADD")
-            Interface.CreateContact(PhoneBook);
+        else if(input =="ADD"){
+            if(!Interface.CreateContact(PhoneBook)){
+                std::cout<<"Error creating contact, try again"<<std::endl;
+            }
+        }
         else if(input == "SEARCH")
             Interface.PrintAllContact(PhoneBook);
         else
-            std::cout <<"Invalid input" <<std::endl;
+            std::cout <<"Please choose a valid input (ADD) (SEARCH) (EXIT)"<<std::endl;
     }
     return 0;
 }

@@ -11,38 +11,65 @@
 /* ************************************************************************** */
 
 #include "Interface.hpp"
+#include <stdlib.h>
 
 Interface::Interface(){};
 Interface::~Interface(){};
 
+std::string Interface::GetInput(std::string text)
+{
+	std::string input;
+
+	std::cout<<text<< " ->";
+	std::getline(std::cin, input);
+	return input;
+}
+
+bool Interface::IsAllNum(std::string str){
+	for(size_t i = 0; i < str.length(); i++){
+		if(!std::isalnum(str[i]))
+			return false;
+	}
+	return true;
+}
+
 bool Interface::CreateContact(PhoneBook & Book)
 {
-	//TODO -> logica para deixar legivel pfvr.
 	Contact c;
 	std::string input;
 
-	std::cout << "Contact Name:"<<std::endl;
-	std::getline(std::cin, input);
+	input = GetInput("Contact Name");
 	if(!c.SetName(input))
 		return false;
-	std::cout << "Contact LastName:"<<std::endl;
-	std::getline(std::cin, input);
+	input = GetInput("Contact LastName");
 	if(!c.SetLastName(input))
 		return false;
-	std::cout << "Contact NickName:"<<std::endl;
-	std::getline(std::cin, input);
+	input = GetInput("Contact NickName");
 	if(!c.SetNickName(input))
 		return false;
-	std::cout << "Contact PhoneNumber:"<<std::endl;
-	std::getline(std::cin, input);
+	input = GetInput("Contact PhoneNumber");
 	if(!c.SetPhoneNumber(input))
 		return false;
-	std::cout << "Contact Secret:"<<std::endl;
-	std::getline(std::cin, input);
+	input = GetInput("Contact Secret");
 	if(!c.SetSecret(input))
 		return false;
 	Book.AddinList(c);
+	std::cout<<"Contact created "<<std::endl;
 	return true;
+}
+
+void Interface::PrintTable(int flag){
+	std::cout<<"|";
+	PrintLine("Index");
+	PrintLine("Name");
+	PrintLine("LastName");
+	PrintLine("Nickname");
+	if(flag == 1)
+	{
+		PrintLine("Phone");
+		PrintLine("Secret");
+	}
+	std::cout<<std::endl;
 }
 
 void Interface::PrintLine(std::string str){
@@ -54,6 +81,16 @@ void Interface::PrintLine(std::string str){
 	return;
 }
 
+void Interface::PrintEmpty(void){
+	PrintLine("Empty");
+	PrintLine("Empty");
+	PrintLine("Empty");
+	PrintLine("Empty");
+	PrintLine("Empty");
+	PrintLine("Empty");
+	std::cout<<std::endl;
+}
+
 void Interface::PrintSeparator(void){
 	std::cout<<"----------------------------------"<<std::endl;
 }
@@ -61,33 +98,47 @@ void Interface::PrintSeparator(void){
 void Interface::PrintAllContact(PhoneBook & PhoneBook)
 {
 	std::string index;
-
-	for (int i = 0; i < 8; i++)
+	int j = PhoneBook.GetIndex();
+	if(j == 0){
+		std::cout<<"List is Empty"<<std::endl;
+		return;}
+	PrintTable(0);
+	for (int i = 0; i < j; i++)
 		PrintContact(PhoneBook, i, 0);
 
-	std::cout<<"Type the index you want to print"<<std::endl;
+	std::cout<<"Type the index you want to print -> ";
 	std::getline(std::cin, index);
-	//TODO CONCERTAR ESSA MALDITA ISALNUM;
-	if(index.empty() || !std::isdigit(index[0]))
+	if(index.empty() || !IsAllNum(index)){
+		std::cout<<"Invalid index"<<std::endl;
 		return;
+	}
 	int i = atoi(index.c_str());
 	if(i < 0 || i > 7){
-		std::cout<<"Bad index"<<std::endl;
-		return;}
-	PrintSeparator();
+		std::cout<<"Invalid index"<<std::endl;
+		return;
+	}
+	PrintTable(1);
 	PrintContact(PhoneBook, i - 1, 1);
 }
 
 void Interface::PrintContact(PhoneBook & Book, int i, int flag)
 {
 	Contact c = Book.GetContact(i);
+	if(c.GetName().empty()){
+		std::cout<<"|";
+		PrintEmpty();
+		return;
+	}
 	std::cout<<"|"<<std::setw(10)<<i+1<<"|";
 	PrintLine(c.GetName());
 	PrintLine(c.GetLastName());
 	PrintLine(c.GetNickName());
-	PrintLine(c.GetPhoneNumber());
 	if(flag == 1)
+	{
+		PrintLine(c.GetPhoneNumber());
 		PrintLine(c.GetSecret());
+	}
 	std::cout<<std::endl;
 }
+
 

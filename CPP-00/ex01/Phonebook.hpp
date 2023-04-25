@@ -20,6 +20,7 @@ public:
     PhoneBook(void);
     ~PhoneBook(void);
     void AddinList(Contact c);
+    int GetIndex(void);
     Contact GetContact (int i);
 
 private:

@@ -15,15 +15,20 @@
 
 PhoneBook::PhoneBook(){	i = 0; }
 PhoneBook::~PhoneBook(){}
-
-Contact PhoneBook::GetContact(int i)
-{
-	return this->list[i];
-}
-
+Contact PhoneBook::GetContact(int i){return this->list[i];}
+int PhoneBook::GetIndex(void){return i;}
 void PhoneBook::AddinList(Contact c)
 {
-	this->list[this->i] = c;
-	if(i != 7)
-		this->i++;
+    if (i < 7) { 
+        for (int j = i; j > 0; j--) {
+            list[j] = list[j-1];
+        }
+        list[0] = c;
+        i++;
+    } else { 
+        for (int j = 6; j >= 0; j--) {
+            list[j+1] = list[j];
+        }
+        list[0] = c;
+    }
 }

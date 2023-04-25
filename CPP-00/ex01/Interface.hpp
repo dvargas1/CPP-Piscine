@@ -22,12 +22,16 @@ public:
     Interface(void);
     ~Interface(void);
     bool CreateContact(PhoneBook & Book);
+    bool IsAllNum(std::string str);
     void PrintContact(PhoneBook & Book, int i, int flag);
     void HelpMessage(void);
     void WelcomeMessage(void);
     void PrintLine(std::string str);
     void PrintAllContact(PhoneBook & PhoneBook);
+    void PrintTable(int flag);
     void PrintSeparator(void);
+    void PrintEmpty(void);
+    std::string GetInput(std::string text);
 };
 
 #endif
