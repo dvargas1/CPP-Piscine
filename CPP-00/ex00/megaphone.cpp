@@ -13,10 +13,10 @@
 #include <iostream>
 
 void ft_putstr(char *str){
-	int i = -1;
-	
-	while(str[++i] != '\0')
-		std::cout<<(char)toupper(str[i]);
+	std::string s(str);
+	for(size_t i = 0; i < s.length(); i++){
+		std::cout<<(char)toupper(s[i]);
+	}
 }
 
 int main(int argc, char **argv){
