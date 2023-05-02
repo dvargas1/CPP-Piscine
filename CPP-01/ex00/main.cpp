@@ -16,14 +16,16 @@ Zombie* newZombie(std::string name);
 void randomChump(std::string name);
 
 int main(void){
-	Zombie*	First = newZombie("Runner");
+	std::cout<<"Creating a zombie named Runner"<<std::endl;
+	Zombie	First = Zombie("Runner");
+	First.announce();
+
+	std::cout<<"Creating a zombie named Bloater"<<std::endl;
 	Zombie*	Second = newZombie("Bloater");
+	Second->announce();
 
 	randomChump("Clicker");
 
-	First->announce();
-	Second->announce();
-	delete First;
 	delete Second;
 	return(0);
 }

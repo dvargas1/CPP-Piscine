@@ -27,7 +27,7 @@ void Harl::complain(std::string level){
 		if(PossibleLevels[i] == level)
 			index = i;
 	}
-	if(index < 0){
+	if(index == -42){
 		std::cout<< "DEU RUIM, CORRE QUE O HARL TA PUTO !"<< std::endl;
 		return;
 	}

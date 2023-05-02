@@ -4,3 +4,5 @@ CPP-01/ex01/MoreBrainz
 CPP-01/ex05/Harl
 CPP-00/.vscode/c_cpp_properties.json
 CPP-00/.vscode/settings.json
+.vscode/settings.json
+generatecpp.sh
