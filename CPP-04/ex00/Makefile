@@ -1,9 +1,14 @@
-NAME	= megaphone
+NAME	= animal
 
 CC		= g++
 CFLAGS	= -Werror -Wextra -Wall -std=c++98
 
-SRC		= megaphone.cpp
+SRC		= Animal.cpp \
+			Cat.cpp \
+			Dog.cpp \
+			WrongAnimal.cpp \
+			WrongCat.cpp \
+			main.cpp
 OBJ		= $(SRC:.cpp=.o)
 
 all: $(NAME)
