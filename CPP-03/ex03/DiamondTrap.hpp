@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:10:58 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/08 07:44:05 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/08 08:02:48 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ public:
     DiamondTrap(std::string name);
     DiamondTrap(DiamondTrap const &cp);
     DiamondTrap &operator=(DiamondTrap const &cp);
-    ~DiamondTrap();          
+    ~DiamondTrap();
+    void WhoAmI();      
 private:
     std::string name;
 };

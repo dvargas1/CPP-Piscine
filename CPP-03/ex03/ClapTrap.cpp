@@ -6,13 +6,13 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 08:18:24 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/07 09:37:58 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/08 08:11:56 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() :  CLAPTRAP_INIT(){}
+ClapTrap::ClapTrap() :  CLAPTRAP_INIT(), name("unnamed"){}
 
 ClapTrap::ClapTrap(std::string name) :  CLAPTRAP_INIT(),
                                         name(name){

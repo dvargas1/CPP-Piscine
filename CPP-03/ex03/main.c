@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 08:58:08 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/08 07:58:01 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/08 08:14:16 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ int main()
     a.attack("Dummy");
     a.guardGate();
     a.highFivesGuys();
+    a.WhoAmI();
 
     DiamondTrap b;
     b = a;
-    
-    b.takeDamage(10000);
+    b.WhoAmI();
     
     DiamondTrap c(a);
     c.beRepaired(100);
+    c.highFivesGuys();
+    c.WhoAmI();
 }
