@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 09:56:36 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/09 07:20:57 by dvargas          ###   ########.fr       */
+/*   Created: 2023/05/08 08:40:36 by dvargas           #+#    #+#             */
+/*   Updated: 2023/05/09 17:17:23 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRONGANIMAL_CLASS
-#define WRONGANIMAL_CLASS
+#include "Animal.hpp"
+#include "Dog.hpp"
+#include "Cat.hpp"
+#include "WrongAnimal.hpp"
+#include "WrongCat.hpp"
+#include "Brain.hpp"
 
-#include <iostream>
+int main(){
+    {
+        //this bottom line will not work
+        //Animal a("Ornintorrinco");
+        Animal *c = new Cat();
 
-class WrongAnimal {
-protected:
-    std::string type;
+        c->makeSound();
 
-public:
-    WrongAnimal();
-    WrongAnimal(std::string type);
-    WrongAnimal(WrongAnimal const &cp);
-    WrongAnimal& operator=(WrongAnimal const &cp);
-    virtual ~WrongAnimal();
-    std::string getType() const;
-    void makeSound() const;
-};
-
-#endif
+        delete c;
+    }
+}
