@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 07:11:49 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/14 08:09:03 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/18 08:08:34 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ public:
     void setGrade(int grade);
     void gradeIncrement();
     void gradeDecrement();
-    class GradeTooHighException : public std::exception {
+    class GradeTooHighException : public std::logic_error {
     public:
-        const char* error() const throw();
+        GradeTooHighException();
     };
-    class GradeTooLowException : public std::exception {
+    class GradeTooLowException : public std::logic_error {
     public:
-        const char* error() const throw();
+        GradeTooLowException();
     };
 private:
     std::string const name;

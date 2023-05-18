@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:18:38 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/14 08:24:28 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/18 08:13:41 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,18 @@ int Bureaucrat::getGrade() const{ return grade; }
 
 void Bureaucrat::gradeIncrement() {
   if(grade - 1 < MAX_GRADE)
-    throw Bureaucrat::GradeTooHighException();
+    throw GradeTooHighException();
   setGrade(grade - 1);
 }
 void Bureaucrat::gradeDecrement() {
   if(grade + 1 > MIN_GRADE)
-    throw Bureaucrat::GradeTooLowException();
-      setGrade(grade + 1);
+    throw GradeTooLowException();
+  setGrade(grade + 1);
 }
 
-const char* Bureaucrat::GradeTooHighException::error() const throw(){
-    return "Grade Too High, maximum grade is 1";
-}
+Bureaucrat::GradeTooHighException::GradeTooHighException() : std::logic_error("Grade Too High, maximum grade is 1"){}
 
-const char* Bureaucrat::GradeTooLowException::error() const throw(){
-    return "Grade Too Low, minimum grade is 150";
-}
+Bureaucrat::GradeTooLowException::GradeTooLowException() : std::logic_error("Grade Too Low, minimum grade is 150"){}
 
 std::ostream &operator<<(std::ostream &io, Bureaucrat const &cp){
   io << cp.getName() <<", bureucrat grade "<< cp.getGrade()<< std::endl;
