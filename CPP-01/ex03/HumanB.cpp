@@ -12,8 +12,7 @@
 
 #include "HumanB.hpp"
 
-HumanB::HumanB(std::string name){
-	this->Name = name;
+HumanB::HumanB(std::string name) : Name(name), wp(NULL){
 }
 
 HumanB::~HumanB(){}
@@ -26,7 +25,7 @@ void HumanB::SetWeapon(Weapon& newweapon){
 }
 
 void HumanB::Attack(void){
-	if(!this->wp || this->wp->GetType() == "")
+	if(!wp)
 		std::cout <<Name<<" dont have weapon to attack"<<std::endl;
 	else
 		std::cout<< Name<<" attacks with their "<<wp->GetType()<<std::endl;

@@ -16,9 +16,10 @@
 #include "Weapon.hpp"
 #include <iostream>
 #include <string>
+
 int main(void){
 
-	Weapon weapon1("Faca");
+	Weapon weapon1("teste");
 	Weapon weapon2("Canivete");
 	HumanA a("Daniel",weapon1);
 	HumanB b("Marvin");
@@ -43,6 +44,7 @@ int main(void){
 	std::cout<<"\n------- FIM ------"<<std::endl;
 	return(0);
 }
+
 /*
 int main(void){
 	{

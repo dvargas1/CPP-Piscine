@@ -20,7 +20,7 @@ public:
 	Weapon(void);
 	Weapon(std::string);
 	~Weapon(void);
-	std::string GetType(void);
+	std::string GetType(void) const;
 	void SetType(std::string);
 
 private:

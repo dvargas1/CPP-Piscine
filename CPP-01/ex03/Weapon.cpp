@@ -12,13 +12,13 @@
 
 #include "Weapon.hpp"
 
-Weapon::Weapon(){}
+Weapon::Weapon() : Type("teste"){}
 Weapon::Weapon(std::string wpname){
 	this->Type = wpname;
 }
 Weapon::~Weapon(){}
 
-std::string Weapon::GetType(){
+std::string Weapon::GetType() const{
 	return(this->Type);
 }
 
