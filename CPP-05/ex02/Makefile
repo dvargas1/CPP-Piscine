@@ -3,7 +3,7 @@ NAME	= Bureucrat
 CC		= g++
 CFLAGS	= -Werror -Wextra -Wall -std=c++98 -g
 
-SRC		= Form.cpp \
+SRC		= AForm.cpp \
 		Bureaucrat.cpp \
 		main.cpp
 OBJ		= $(SRC:.cpp=.o)

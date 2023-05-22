@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:18:38 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/19 08:57:04 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/19 15:38:07 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ Bureaucrat::GradeTooHighException::GradeTooHighException() : std::logic_error("G
 
 Bureaucrat::GradeTooLowException::GradeTooLowException() : std::logic_error("Grade Too Low, minimum grade is 150"){}
 
-void Bureaucrat::signForm(Form& form){
+void Bureaucrat::signForm(AForm& form){
   try
   { 
     form.beSigned(*this);

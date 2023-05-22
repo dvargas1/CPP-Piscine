@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 07:11:49 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/19 08:37:08 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/19 15:52:49 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #define BUREAUCRAT_CLASS
 
 #include <iostream>
-#include "Form.hpp"
+#include "AForm.hpp"
 #define MIN_GRADE 150
 #define MAX_GRADE 1
 
-class Form;
+class AForm;
 
 class Bureaucrat {
 public:
@@ -39,7 +39,7 @@ public:
     public:
         GradeTooLowException();
     };
-    void signForm(Form& form);
+    void signForm(AForm& form);
 private:
     std::string const name;
     unsigned int grade;

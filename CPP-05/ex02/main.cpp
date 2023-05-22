@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 08:00:13 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/19 09:12:41 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/19 15:53:26 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int main(){
 	//Form errorWithGrade("Medical issue", 180, 20);
 
 // Increment
-	Form a("Atestado Medico", 15, 50);
+	AForm a("Atestado Medico", 15, 50);
     Bureaucrat	daniel("Daniel", 22);
 	std::cout << daniel << std::endl;
 	std::cout << a<< std::endl;
@@ -34,7 +34,7 @@ int main(){
 			std::cout<<"----------------"<<std::endl;
 		}
 	}
-	catch (Form::GradeTooLowException &e){
+	catch (AForm::GradeTooLowException &e){
 		std::cout << "\n" << e.what() << std::endl;}
 	catch (Bureaucrat::GradeTooHighException &e){
         std::cout << "\n" << e.what() << std::endl;}
