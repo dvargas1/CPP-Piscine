@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 07:11:49 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/19 15:52:49 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/22 23:14:55 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ public:
         GradeTooLowException();
     };
     void signForm(AForm& form);
+    void executeForm(AForm const & form);
 private:
     std::string const name;
     unsigned int grade;

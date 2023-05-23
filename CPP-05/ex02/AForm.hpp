@@ -22,7 +22,7 @@ class AForm {
 public:
     AForm();
     AForm(std::string name, int signGrade, int executeGrade);
-    ~AForm();
+    virtual ~AForm();
     AForm(AForm const &cp);
     AForm& operator=(AForm const &cp);
     std::string getName()const ;
@@ -42,8 +42,14 @@ public:
     public:
         AlreadySignException();
     };
+    class NotSignException : public std::logic_error {
+    public:
+        NotSignException();
+    };
     void validateGrade();
-    
+    void execute(Bureaucrat const & executor) const;
+protected:
+    virtual void toExecute() const = 0;
 private:
     std::string const name;
     bool sign;

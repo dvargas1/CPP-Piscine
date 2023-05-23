@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:18:38 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/19 15:38:07 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/22 23:18:06 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,22 @@ void Bureaucrat::signForm(AForm& form){
   }
   catch(std::exception &e){
     std::cout<<name<<" could't sign "<<form.getName()<<" because " << e.what()<<std::endl;}
+}
+
+void Bureaucrat::executeForm(AForm const & form){
+  try
+  {
+    form.execute(*this);
+    std::cout<<name<<" executed "<<form.getName() << std::endl;
+  }
+  catch(AForm::GradeTooLowException &e){
+    std::cerr << e.what() << '\n';
+  }
+    catch(AForm::NotSignException &e){
+    std::cerr << e.what() << '\n';
+  }
+   catch(std::exception &e){
+    std::cout<<name<<" could't execute "<<form.getName()<<" because " << e.what()<<std::endl;}
 }
 
 
