@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 08:24:46 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/22 23:11:59 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/23 08:38:43 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void AForm::validateGrade(){
         throw GradeTooHighException();
 }
 void AForm::execute(Bureaucrat const & executor) const{
-    if(executor.getGrade() > executeGrade)
-        throw AForm::GradeTooLowException();
-    else if(!sign)
+    if(!sign)
         throw AForm::NotSignException();
+    else if(executor.getGrade() > executeGrade)
+        throw AForm::GradeTooLowException();
     toExecute();
 }
 

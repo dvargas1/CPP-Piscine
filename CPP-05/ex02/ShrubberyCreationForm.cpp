@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:31:22 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/22 23:23:36 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/23 07:36:32 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
         return *this;
     }
     std::string ShrubberyCreationForm::getTarget() const{ return target; }
-void ShrubberyCreationForm::toExecute(){
+void ShrubberyCreationForm::toExecute() const{
     std::ofstream file;
     std::string filename = target + "_shrubbery";
     file.open(filename.c_str());

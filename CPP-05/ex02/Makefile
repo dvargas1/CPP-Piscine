@@ -6,6 +6,8 @@ CFLAGS	= -Werror -Wextra -Wall -std=c++98 -g
 SRC		= AForm.cpp \
 		Bureaucrat.cpp \
 		ShrubberyCreationForm.cpp \
+		RobotomyRequestForm.cpp \
+		PresidentialPardonForm.cpp \
 		main.cpp
 OBJ		= $(SRC:.cpp=.o)
 
@@ -19,6 +21,7 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -f *.o
+	rm -f *_shrubbery
 
 fclean: clean
 	rm -f $(NAME)
