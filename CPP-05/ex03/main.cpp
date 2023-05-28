@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 08:00:13 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/28 19:35:44 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/05/28 19:51:17 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int main(){
 	AForm *PardonForm = someRandomIntern.makeForm("presidential pardon", "Bender");
 	AForm *TreeForm = someRandomIntern.makeForm("shrubbery creation", "Bender");
 	AForm *RobotomyForm = someRandomIntern.makeForm("robotomy request", "Bender");
-	//rrf = someRandomIntern.makeForm("shrcreation", "Bender");
 	PardonForm->beSigned(Daniel);
 	TreeForm->beSigned(Daniel);
 	RobotomyForm->beSigned(Daniel);
@@ -35,4 +34,8 @@ int main(){
 	TreeForm->execute(Daniel);
 	std::cout << "\n***Execute RobotomyForm***" << std::endl;
 	RobotomyForm->execute(Daniel); 
+
+	delete PardonForm;
+	delete TreeForm;
+	delete RobotomyForm;
 }
