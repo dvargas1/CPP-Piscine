@@ -15,17 +15,21 @@
 int main()
 {
     DiamondTrap a("ShinyBOY");
+    a.printStatus();
     a.attack("Dummy");
     a.guardGate();
     a.highFivesGuys();
-    a.WhoAmI();
+    a.whoAmI();
 
+    std::cout << "\n\n second DTRAP" << std::endl;
     DiamondTrap b;
     b = a;
-    b.WhoAmI();
+    b.whoAmI();
     
+    std::cout << "\n\n third DTRAP" << std::endl;
     DiamondTrap c(a);
     c.beRepaired(100);
     c.highFivesGuys();
-    c.WhoAmI();
+    c.whoAmI();
+    std::cout <<"\n\n"<<std::endl;
 }

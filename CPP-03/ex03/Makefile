@@ -7,7 +7,7 @@ SRC		= ClapTrap.cpp \
 			ScavTrap.cpp \
 			FragTrap.cpp \
 			DiamondTrap.cpp \
-			main.c
+			main.cpp
 OBJ		= $(SRC:.cpp=.o)
 
 all: $(NAME)

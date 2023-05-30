@@ -29,6 +29,8 @@ public:
     FragTrap &operator=(FragTrap const &cp);
     ~FragTrap();
     void highFivesGuys(void); 
+    static int fragTrap_HP();
+    static int fragTrap_AD();
 };
 
 #endif

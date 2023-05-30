@@ -46,3 +46,5 @@ FragTrap::~FragTrap(){
 void FragTrap::highFivesGuys(){
     std::cout<<name<<"is waiting for a nice high five"<<std::endl;
 }
+int FragTrap::fragTrap_HP(){ return 100; }
+int FragTrap::fragTrap_AD(){ return 30; }

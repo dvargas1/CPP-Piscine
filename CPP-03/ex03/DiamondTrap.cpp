@@ -12,18 +12,18 @@
 
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap() : ClapTrap(), ScavTrap(), FragTrap(){
+DiamondTrap::DiamondTrap() : ClapTrap(), FragTrap(), ScavTrap(){
     DIAMONDTRAP_INIT();
 }
 
 DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"),
-                                                ScavTrap(name + "_scav_name"),
                                                 FragTrap(name + "_frag_name"),
+                                                ScavTrap(name + "_scav_name"),
                                                 name(name){
     DIAMONDTRAP_INIT();
 }
 
-DiamondTrap::DiamondTrap(DiamondTrap const &cp) : ClapTrap(), ScavTrap(), FragTrap(){
+DiamondTrap::DiamondTrap(DiamondTrap const &cp) : ClapTrap(), FragTrap(), ScavTrap(){
     std::cout<<"->Calling DiamondTrap copy constructor "<<this<<std::endl;
     this->hitPoints = cp.getHP();
     this->energyPoints = cp.getEP();
@@ -43,8 +43,20 @@ DiamondTrap &DiamondTrap::operator=(DiamondTrap const &cp){
     return(*this);
 }
 
-void DiamondTrap::WhoAmI(){
+void DiamondTrap::attack(const std::string& target){
+    FragTrap::attack(target);
+}
+
+void DiamondTrap::whoAmI(){
     std::cout<<"Hello, my name is "<<name<<" and my ClapTrap name is "<<ClapTrap::name<<std::endl;
+}
+
+void DiamondTrap::printStatus(){
+    std::cout << "\nmy name is" << name << std::endl;
+    std::cout << "ENERGYPOINTS -> " << this->energyPoints <<std::endl;
+    std::cout << "DAMAGE -> " << this->attackDmg <<std::endl;
+    std::cout << "HIT POINTS -> " << this->hitPoints <<std::endl;
+    std::cout << "\n\n";
 }
 
 DiamondTrap::~DiamondTrap(){

@@ -4,7 +4,7 @@ CC		= g++
 CFLAGS	= -Werror -Wextra -Wall -std=c++98
 
 SRC		= ClapTrap.cpp \
-			main.c
+			main.cpp
 OBJ		= $(SRC:.cpp=.o)
 
 all: $(NAME)

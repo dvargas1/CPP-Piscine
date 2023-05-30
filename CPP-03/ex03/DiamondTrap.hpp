@@ -19,18 +19,20 @@
 
 #define DIAMONDTRAP_INIT() \
 this->isAlive = true, \
-this->hitPoints = FragTrap::hitPoints, \
-this->energyPoints = ScavTrap::energyPoints, \
-this->attackDmg = FragTrap::attackDmg
+this->hitPoints = FragTrap::fragTrap_HP(), \
+this->energyPoints = ScavTrap::scavTrap_EP(), \
+this->attackDmg = FragTrap::fragTrap_AD()
 
-class DiamondTrap: public ScavTrap, public FragTrap{
+class DiamondTrap: public virtual FragTrap, public virtual ScavTrap{
 public:
     DiamondTrap();
     DiamondTrap(std::string name);
     DiamondTrap(DiamondTrap const &cp);
     DiamondTrap &operator=(DiamondTrap const &cp);
     ~DiamondTrap();
-    void WhoAmI();      
+    void attack(const std::string& target);
+    void whoAmI();
+    void printStatus();      
 private:
     std::string name;
 };

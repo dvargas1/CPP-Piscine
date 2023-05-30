@@ -14,15 +14,17 @@
 
 int main()
 {
-    FragTrap a("Guardian");
+    FragTrap a("FragTrap");
     a.attack("EVALUATOR");
     a.attack("EVALUATOR");
     a.takeDamage(10);
     a.beRepaired(30);
     a.takeDamage(1000);
+    std::cout<<"\n";
 
     FragTrap b("Second");
     FragTrap c = b;
     c.takeDamage(30);
     c.attack("AGAIN");
+    std::cout<<"\n";
 }
