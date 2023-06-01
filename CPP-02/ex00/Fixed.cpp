@@ -16,20 +16,18 @@ Fixed::Fixed(){
     std::cout<<"default constructor create: "<<this<<std::endl;
     fixedPoint = 0;
 };
-Fixed::Fixed(const Fixed &src):
-                                fixedPoint(src.getRawBits())
-{
+Fixed::Fixed(const Fixed &src): fixedPoint(src.getRawBits()){
     std::cout<<"copy constructor create: "<<this<<std::endl;
 }
 Fixed &Fixed::operator=(const Fixed &src){
     std::cout<<"copy assignment operator create: "<<this<<std::endl;
     if(this != &src)
-        fixedPoint = src.getRawBits()  + 10;
+        fixedPoint = src.getRawBits();
     return *this;
 }
 Fixed::~Fixed(){
     std::cout<<"Calling destructor"<<std::endl;
 };
 
-void Fixed::setRawBits(int raw){fixedPoint = raw;};
+void Fixed::setRawBits(int const raw){fixedPoint = raw;};
 int Fixed::getRawBits(void) const{return fixedPoint;};

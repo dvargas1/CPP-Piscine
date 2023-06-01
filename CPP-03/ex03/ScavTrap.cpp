@@ -68,3 +68,5 @@ void ScavTrap::guardGate(){
 ScavTrap::~ScavTrap(){
     std::cout<<name<< " ScavTrap has been destructed <- "<<this<<std::endl;
 }
+
+int ScavTrap::scavTrap_EP(){ return 50; }

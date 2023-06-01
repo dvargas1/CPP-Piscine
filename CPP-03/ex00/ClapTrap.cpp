@@ -37,6 +37,10 @@ ClapTrap& ClapTrap::operator=(ClapTrap const &cp){
 }
 
 void ClapTrap::attack(const std::string& target){
+    if(isAlive != true){
+        std::cout<<"Cant do anything "<<name<<" stopped working"<<std::endl;
+        return;
+    }
     std::cout<<"claptrap "<<name<<" attacks "<<target<<", causing "<<attackDmg<<" points of damage"<<std::endl;
     energyPoints -= 1;
     this->setDead();

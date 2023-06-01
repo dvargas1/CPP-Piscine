@@ -32,7 +32,7 @@ public:
     void getGuardkeep();
     void guardGate();
     void attack(const std::string& target);
-
+    static int scavTrap_EP();
 protected:
     bool guardKeep;
 };

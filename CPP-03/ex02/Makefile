@@ -6,7 +6,7 @@ CFLAGS	= -Werror -Wextra -Wall -std=c++98
 SRC		= ClapTrap.cpp \
 			ScavTrap.cpp \
 			FragTrap.cpp \
-			main.c
+			main.cpp
 OBJ		= $(SRC:.cpp=.o)
 
 all: $(NAME)
