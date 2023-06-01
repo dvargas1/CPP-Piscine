@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 07:31:12 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/29 08:28:39 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/06/01 09:20:18 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ ScalarConverter& ScalarConverter::operator=(ScalarConverter const &cp){
     return *this;
 }
 bool ScalarConverter::isCharLiteral(std::string s) {
-    if(s.length() == 3 && s[0] == '\'' && s[2] == '\'')
+    if(s.length() == 1 && isalpha(s[0]))
         return true;
     return false;
 }
@@ -37,34 +37,40 @@ bool ScalarConverter::isIntLiteral(std::string s) {
     return true;
 }
 bool ScalarConverter::isFloatLiteral(std::string s) {
-    size_t pos = 0;
-    std::atof(s.c_str());
-    if (s.find('.', pos) != std::string::npos) {
-        return true;
+    if(s.length() > 1 && s[s.length() - 1] == 'f'){
+        size_t pos = 0;
+        std::atof(s.c_str());
+        if (s.find('.', pos) != std::string::npos) {
+            return true;
+        }
     }
     return false;
 }
 bool ScalarConverter::isDoubleLiteral(std::string s) {
-    size_t pos = 0;
-    std::atof(s.c_str());
-    if (s.find('.', pos) != std::string::npos) {
-        return true;
+    if(s.length() > 1 && s[s.length() - 1] != 'f'){
+        size_t pos = 0;
+        std::atof(s.c_str());
+        if (s.find('.', pos) != std::string::npos) {
+            return true;
+        }
     }
     return false;
 }
 void ScalarConverter::convertToChar(std::string s) {
     std::cout << "Char: " << s[1] << std::endl;
     std::cout << "Int: " << static_cast<int>(s[1]) << std::endl;
-    std::cout << "Float" << static_cast<float>(s[1]) << std::endl;
-    std::cout << "Double" << static_cast<double>(s[1]) << std::endl;
+    std::cout << "Float" << std::setprecision(4) << static_cast<float>(s[1]) << "f" << std::endl;
+    std::cout << "Double" << std::setprecision(8) << static_cast<double>(s[1]) << std::endl;
 }
+
 void ScalarConverter::convertToInt(std::string s) {
     int value = std::atoi(s.c_str());
     std::cout << "Char: " << static_cast<char>(value) << std::endl;
     std::cout << "Int: " << value << std::endl;
-    std::cout << "Float" << static_cast<float>(value) << std::endl;
-    std::cout << "Double" << static_cast<double>(value) << std::endl;
+    std::cout << "Float" << std::setprecision(4) << static_cast<float>(value) << "f" << std::endl;
+    std::cout << "Double" << std::setprecision(8) << static_cast<double>(value) << std::endl;
 }
+
 void ScalarConverter::convertToFloat(std::string s) {
     float value = std::atof(s.c_str());
     if(isprint(static_cast<char>(value)))
@@ -72,10 +78,10 @@ void ScalarConverter::convertToFloat(std::string s) {
     else
         std::cout << "Char: Not displayable" << std::endl;
     std::cout << "Int: " << static_cast<int>(value) << std::endl;
-    std::cout << "Float" << value << std::endl;
-    std::cout << "Double" << static_cast<double>(value) << std::endl;
-    
+    std::cout << "Float" << value << "f" << std::endl;
+    std::cout << "Double" << std::fixed << std::setprecision(8) << static_cast<double>(value) << std::endl;
 }
+
 void ScalarConverter::convertToDouble(std::string s) {
     double value = std::atof(s.c_str());
     if(isprint(static_cast<char>(value)))
@@ -83,11 +89,44 @@ void ScalarConverter::convertToDouble(std::string s) {
     else
         std::cout << "Char: Not displayable" << std::endl;
     std::cout << "Int: " << static_cast<int>(value) << std::endl;
-    std::cout << "Float" << static_cast<float>(value) << std::endl;
-    std::cout << "Double" << value << std::endl;
+    std::cout << "Float" << std::fixed << std::setprecision(4) << static_cast<float>(value) << "f" << std::endl;
+    std::cout << "Double" << std::fixed << std::setprecision(8) << value << std::endl;
 }
+
+bool ScalarConverter::isSpecial(std::string s)
+{
+    if(s == "nan" || s == "-inf" || s == "+inf" ||
+        s == "nanf" || s == "-inff" || s == "+inff")
+        return true;
+    return false;
+}
+
+void ScalarConverter::printSpecialCase(std::string literal){
+    if (literal == "nan") {
+        std::cout << "Char: impossible" << std::endl;
+        std::cout << "Int: impossible" << std::endl;
+        std::cout << "Float: nanf" << std::endl;
+        std::cout << "Double: nan" << std::endl;
+    }
+    else if (literal == "-inf" || literal == "+inf") {
+        std::cout << "Char: impossible" << std::endl;
+        std::cout << "Int: impossible" << std::endl;
+        std::cout << "Float: " << literal << "f" << std::endl;
+        std::cout << "Double: " << literal << std::endl;
+    }
+    else if (literal == "nanf" || literal == "-inff" || literal == "+inff") {
+        std::cout << "Char: impossible" << std::endl;
+        std::cout << "Int: impossible" << std::endl;
+        std::cout << "Float: " << literal << std::endl;
+        std::cout << "Double: " << literal << std::endl;
+    }
+}
+
 void ScalarConverter::convert(std::string literal) {
-    if(isCharLiteral(literal)){
+    if(isSpecial(literal)){
+        printSpecialCase(literal);
+    }
+    else if(isCharLiteral(literal)){
         convertToChar(literal);
     }
     else if(isIntLiteral(literal)){
@@ -96,9 +135,9 @@ void ScalarConverter::convert(std::string literal) {
     else if(isFloatLiteral(literal)){
         convertToFloat(literal);
     }
-    if(isDoubleLiteral(literal)){
+    else if(isDoubleLiteral(literal)){
         convertToDouble(literal);
     }
     else
-        std::cout << "ELSE DO CONVERTER - se fudeu" << std::endl;
+        throw(std::range_error("wrong input"));
 }
