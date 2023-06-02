@@ -56,41 +56,48 @@ bool ScalarConverter::isDoubleLiteral(std::string s) {
     }
     return false;
 }
+
+void ScalarConverter::printChar(std::string s) {
+    int value = static_cast<int>(s[0]);
+    if(value < 0 || value > 128)
+        std::cout << "char: impossible" << std::endl;
+    else if(value < 32 || value > 127)
+        std::cout << "char: Non displayable" << std::endl;
+    else
+        std::cout << "Char: " << "'" << static_cast<char>(value) << "'" << std::endl;
+}
+
 void ScalarConverter::convertToChar(std::string s) {
-    std::cout << "Char: " << s[1] << std::endl;
-    std::cout << "Int: " << static_cast<int>(s[1]) << std::endl;
-    std::cout << "Float" << std::setprecision(4) << static_cast<float>(s[1]) << "f" << std::endl;
-    std::cout << "Double" << std::setprecision(8) << static_cast<double>(s[1]) << std::endl;
+    int value = static_cast<int>(s[0]);
+    std::cout << value << std::endl;
+    printChar(s);
+    std::cout << "Int: " << static_cast<int>(value) << std::endl;
+    std::cout << "Float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" << std::endl;
+    std::cout << "Double: " << std::fixed << std::setprecision(2) << static_cast<double>(value) << std::endl;
 }
 
 void ScalarConverter::convertToInt(std::string s) {
     int value = std::atoi(s.c_str());
-    std::cout << "Char: " << static_cast<char>(value) << std::endl;
+    printChar(s);
     std::cout << "Int: " << value << std::endl;
-    std::cout << "Float" << std::setprecision(4) << static_cast<float>(value) << "f" << std::endl;
-    std::cout << "Double" << std::setprecision(8) << static_cast<double>(value) << std::endl;
+    std::cout << "Float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" << std::endl;
+    std::cout << "Double: " << std::fixed << std::setprecision(2) << static_cast<double>(value) << std::endl;
 }
 
 void ScalarConverter::convertToFloat(std::string s) {
     float value = std::atof(s.c_str());
-    if(isprint(static_cast<char>(value)))
-        std::cout << "Char: " << static_cast<char>(value) << std::endl;
-    else
-        std::cout << "Char: Not displayable" << std::endl;
+    printChar(s);
     std::cout << "Int: " << static_cast<int>(value) << std::endl;
-    std::cout << "Float" << value << "f" << std::endl;
-    std::cout << "Double" << std::fixed << std::setprecision(8) << static_cast<double>(value) << std::endl;
+    std::cout << "Float: " << value << "f" << std::endl;
+    std::cout << "Double: " << std::fixed << std::setprecision(4) << static_cast<double>(value) << std::endl;
 }
 
 void ScalarConverter::convertToDouble(std::string s) {
     double value = std::atof(s.c_str());
-    if(isprint(static_cast<char>(value)))
-        std::cout << "Char: " << static_cast<char>(value) << std::endl;
-    else
-        std::cout << "Char: Not displayable" << std::endl;
+    printChar(s);
     std::cout << "Int: " << static_cast<int>(value) << std::endl;
-    std::cout << "Float" << std::fixed << std::setprecision(4) << static_cast<float>(value) << "f" << std::endl;
-    std::cout << "Double" << std::fixed << std::setprecision(8) << value << std::endl;
+    std::cout << "Float: " << std::fixed << std::setprecision(2) << static_cast<float>(value) << "f" << std::endl;
+    std::cout << "Double: " << std::fixed << std::setprecision(4) << value << std::endl;
 }
 
 bool ScalarConverter::isSpecial(std::string s)
@@ -127,6 +134,7 @@ void ScalarConverter::convert(std::string literal) {
         printSpecialCase(literal);
     }
     else if(isCharLiteral(literal)){
+        std::cout << "asdasdasda" << std::endl;
         convertToChar(literal);
     }
     else if(isIntLiteral(literal)){

@@ -13,8 +13,10 @@
 #include "ScalarConverter.hpp"
 
 int main(int argc, char **argv) {
+    
     if(argc != 2)
         return 1;
+
     ScalarConverter converter;
     try
     {
@@ -22,6 +24,6 @@ int main(int argc, char **argv) {
     }
     catch (...)
     {
-        std::cerr << " deu ruim" << std::endl;
+        std::cerr << "Something is wrong with input" << std::endl;
     }
 }

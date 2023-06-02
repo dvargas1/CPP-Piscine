@@ -37,6 +37,7 @@ public:
     static void convertToFloat(std::string s);
     static void convertToDouble(std::string s);
     static void printSpecialCase(std::string s);
+    static void printChar(std::string s);
 private:
     std::string literal;
 };
