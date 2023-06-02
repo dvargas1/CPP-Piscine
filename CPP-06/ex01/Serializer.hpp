@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Serializer.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/29 08:10:16 by dvargas           #+#    #+#             */
-/*   Updated: 2023/06/01 09:16:24 by dvargas          ###   ########.fr       */
+/*   Created: 2023/06/02 08:55:18 by dvargas           #+#    #+#             */
+/*   Updated: 2023/06/02 09:18:42 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConverter.hpp"
+#ifndef SERIALIZER_CLASS
+#define SERIALIZER_CLASS
 
-int main(int argc, char **argv) {
-    
-    if(argc != 2){
-        std::cout << "./convert (value)" << std::endl;
-        return 1;
-    }
+#include <iostream>
 
-    try
-    {
-        ScalarConverter::convert(argv[1]);
-    }
-    catch (...)
-    {
-        std::cerr << "Something is wrong with input" << std::endl;
-    }
-}
+class Serializer {
+    uintptr_t serialize(Data* ptr);
+    Data* deserialize(uintptr_t raw);
+};
+
+#endif

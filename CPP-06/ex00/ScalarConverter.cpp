@@ -58,7 +58,7 @@ bool ScalarConverter::isDoubleLiteral(std::string s) {
 }
 
 void ScalarConverter::printChar(std::string s) {
-    int value = static_cast<int>(s[0]);
+    int value = std::atof(s.c_str());
     if(value < 0 || value > 128)
         std::cout << "char: impossible" << std::endl;
     else if(value < 32 || value > 127)
@@ -69,8 +69,12 @@ void ScalarConverter::printChar(std::string s) {
 
 void ScalarConverter::convertToChar(std::string s) {
     int value = static_cast<int>(s[0]);
-    std::cout << value << std::endl;
-    printChar(s);
+    if(value < 0 || value > 128)
+        std::cout << "char: impossible" << std::endl;
+    else if(value < 32 || value > 127)
+        std::cout << "char: Non displayable" << std::endl;
+    else
+        std::cout << "Char: " << "'" << static_cast<char>(value) << "'" << std::endl;
     std::cout << "Int: " << static_cast<int>(value) << std::endl;
     std::cout << "Float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" << std::endl;
     std::cout << "Double: " << std::fixed << std::setprecision(2) << static_cast<double>(value) << std::endl;
@@ -134,7 +138,6 @@ void ScalarConverter::convert(std::string literal) {
         printSpecialCase(literal);
     }
     else if(isCharLiteral(literal)){
-        std::cout << "asdasdasda" << std::endl;
         convertToChar(literal);
     }
     else if(isIntLiteral(literal)){
