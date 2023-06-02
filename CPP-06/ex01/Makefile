@@ -3,7 +3,7 @@ NAME	= Convert
 CC		= g++
 CFLAGS	= -Werror -Wextra -Wall -std=c++98 -g
 
-SRC		= ScalarConverter.cpp \
+SRC		= Serializer.cpp \
 		main.cpp
 OBJ		= $(SRC:.cpp=.o)
 
