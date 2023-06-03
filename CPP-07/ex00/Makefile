@@ -1,10 +1,9 @@
-NAME	= Convert
+NAME	= Whatever
 
 CC		= g++
 CFLAGS	= -Werror -Wextra -Wall -std=c++98 -g
 
-SRC		= Serializer.cpp \
-		main.cpp
+SRC		= main.cpp
 OBJ		= $(SRC:.cpp=.o)
 
 all: $(NAME)
