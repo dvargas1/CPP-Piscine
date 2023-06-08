@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 08:15:01 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/31 21:44:18 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/06/08 17:22:50 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ AForm *Intern::shrubbery(std::string target){
     return new ShrubberyCreationForm(target);
 }
 
-const Form Intern::FormList[] = {
+AForm *Intern::makeForm(std::string type, std::string target) {
+    Form FormList[] = {
     { "shrubbery creation",  "Shrubbery Creation Form",  &Intern::shrubbery },
     { "robotomy request",    "Robotomy Request Form",    &Intern::robotomy  },
     { "presidential pardon", "Presidential Pardon Form", &Intern::pardon  }
 };
-
-AForm *Intern::makeForm(std::string type, std::string target) {
     size_t i = 0;
     size_t totalFormNum = sizeof(FormList) / sizeof(Form);
     for(; i < totalFormNum; i++)

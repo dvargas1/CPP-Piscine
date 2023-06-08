@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 08:09:01 by dvargas           #+#    #+#             */
-/*   Updated: 2023/05/31 21:41:50 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/06/08 17:21:21 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ private:
     AForm *pardon(std::string target);
     AForm *robotomy(std::string target);
     AForm *shrubbery(std::string target);
-    static const Form FormList[];
 };
 
 
