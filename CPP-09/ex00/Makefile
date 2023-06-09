@@ -3,7 +3,8 @@ NAME	= BitcoinExchange
 CC		= g++
 CFLAGS	= -Werror -Wextra -Wall -std=c++98 -g
 
-SRC		= main.cpp
+SRC		= main.cpp \
+		BitcoinExchange.cpp
 OBJ		= $(SRC:.cpp=.o)
 
 all: $(NAME)
