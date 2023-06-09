@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:29:35 by dvargas           #+#    #+#             */
-/*   Updated: 2023/06/08 18:59:40 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/06/09 11:33:38 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <ctime>
+#define BADINPUT -1
 
 class BitcoinExchange {
 public:
@@ -27,17 +29,12 @@ public:
     BitcoinExchange(std::string file);
     BitcoinExchange (BitcoinExchange const &cp);
     BitcoinExchange operator=(BitcoinExchange const &cp);
-    void createDB(std::string fileName);
-    bool validateLine(std::string line);
-    bool validateDate(std::string date);
-    bool validateValue(std::string date);
-    void printDB();
-
+    void createDB();
+    std::map<std::string, double> &getDB();
+    void makeExchange(std::map<std::string, double> &input);
     
 private:
-    std::map<std::string, double> exchangeRate;
-    std::string fileName;
-    
-
+    std::map<std::string, double> btcDb;
+    std::string dbName;
 };
 #endif
