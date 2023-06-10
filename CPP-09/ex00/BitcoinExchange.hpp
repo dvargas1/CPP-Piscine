@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:29:35 by dvargas           #+#    #+#             */
-/*   Updated: 2023/06/09 11:33:38 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/06/10 00:11:13 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <iostream>
 #include <ctime>
 #define BADINPUT -1
+#define TOOLARGE -2
 
 class BitcoinExchange {
 public:

@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:11:25 by dvargas           #+#    #+#             */
-/*   Updated: 2023/06/09 11:38:16 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/06/10 00:13:26 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ void BitcoinExchange::createDB() {
 void compareNPrint(std::string date, double valueDB, double valueInput) {
     if(valueInput == BADINPUT)
         std::cout << "Error: bad input => " << date << std::endl;
+    else if(valueInput  == TOOLARGE)
+        std::cout << "Error: too large a number." << std::endl;
     else if(valueInput < 0)
         std::cout << "Error: not a positive number." << std::endl;
-    else if(valueInput > 1000 || valueInput > __FLT_MAX__)
-        std::cout << "Error: too large a number." << std::endl;
     else{
         double result = valueDB * valueInput;
         std::cout << date << " => " << valueInput << " = " << result << std::endl;
@@ -98,10 +98,10 @@ void BitcoinExchange::makeExchange(std::map<std::string, double> &input) {
         else {
             itDb = btcDb.lower_bound(date);
             if(itDb == input.begin())
-                compareNPrint(itDb->first, valueInput, valueInput);
+                compareNPrint(date, valueInput, valueInput);
             else if(itDb == input.end()) {
                 --itInput;
-                compareNPrint(itDb->first, itDb->second, valueInput);
+                compareNPrint(date, itDb->second, valueInput);
             }
             else {
                 std::map<std::string, double>::const_iterator itLow = itDb;
@@ -110,9 +110,9 @@ void BitcoinExchange::makeExchange(std::map<std::string, double> &input) {
                 std::string upperDate = itDb->first;
 
                 if(dateDiff(lowerDate, upperDate) == true )
-                    compareNPrint(itLow->first, itLow->second, valueInput);
+                    compareNPrint(date, itLow->second, valueInput);
                 else
-                    compareNPrint(itInput->first, itInput->second, valueInput);
+                    compareNPrint(date, itInput->second, valueInput);
             }
         }
         ++itInput;
