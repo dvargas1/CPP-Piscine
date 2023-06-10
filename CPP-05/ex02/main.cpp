@@ -24,9 +24,9 @@ int main(){
     Bureaucrat	HighBureucrat("Luna", 1);
 	Bureaucrat	MediumBureucrat("Vargas", 43);
 	Bureaucrat	LowBureucrat("Daniel", 140);
-	std::cout << a<< std::endl;
-	std::cout << b<< std::endl;
-	std::cout << c<< std::endl;
+	std::cout << a << std::endl;
+	std::cout << b << std::endl;
+	std::cout << c << std::endl;
 	
 	std::cout << "\n\n->Daniel will never sign this :("<<std::endl;
 	LowBureucrat.executeForm(c);

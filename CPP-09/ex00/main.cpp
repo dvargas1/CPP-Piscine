@@ -14,25 +14,27 @@
 
 void printDB(std::map<std::string, double> DB);
 std::map<std::string,double> *inputCreate(std::string fileName);
-
-// bool validateLine(std::string line);
-// bool validateValue(std::string date);
-// bool validateDate(std::string date);
-
+int ft_help();
 
 int main(int argc, char **argv)
 {
     if(argc != 2)
-        return std::cerr<<"tente novamente com 1 argumento"<<std::endl, 1;
-    
+        return ft_help();
     std::map<std::string, double> *input = inputCreate(argv[1]);
     BitcoinExchange bitCoinTrader;
-    //printDB(*input);
+    printDB(*input);
     bitCoinTrader.makeExchange(*input);
-
     delete input;
 }
 
+int ft_help() {
+    std::cout << "Usage: ./btc \"Your input file\"" <<std::endl;
+    std::cout << "the input file should be formatted like this:" << std::endl;
+    std::cout << "date | value" << std::endl;
+    std::cout << "2022-01-10" << std::endl;
+    std::cout << "2022-10-20" << std::endl;
+    return 1;
+}
 
 bool validateNB(const std::string& str) {
     std::istringstream iss(str);
@@ -54,22 +56,30 @@ bool validateNB(const std::string& str) {
     return true;
 }
 
+bool isNegative(const std::string &str) {
+    if (str[1] == '-')
+        return true;
+    for (std::size_t i = 2; i < str.size(); ++i)
+    {
+        if(str[i] == '.')
+            i++;
+        if (!std::isdigit(str[i]))
+            return true;
+    }
+    return false;
+}
 
-bool validateString(const std::string& str) {
+bool validateString(const std::string &str) {
   if (str.size() < 11)
     return false;
-
   if (str[4] != '-' || str[7] != '-')
     return false;
-    
   std::istringstream iss(str);
   int year, month, day;
   char separator;
   std::string nb;
   if (!(iss >> year >> separator >> month >> separator >> day >> separator >> nb))
     return false;
-
-  // Verifica se a extração foi bem-sucedida
   if (iss.eof() && (year >= 0 && year <= 2022) && (month >= 1 && 
         month <= 12) && (day >= 1 && day <= 31) && validateNB(nb))
     return true;
@@ -82,6 +92,9 @@ std::map<std::string,double> *inputCreate(std::string fileName) {
     std::ifstream file(fileName.c_str());
     if (!file)
         throw std::invalid_argument("Invalid file name");
+    std::string firstLine;
+    std::getline (file, firstLine);
+    
     std::string line;
     while(std::getline(file,line)){
         std::istringstream iss(line);
@@ -94,10 +107,14 @@ std::map<std::string,double> *inputCreate(std::string fileName) {
                         double rate = std::atof(rateStr.c_str());
                         (*mapRet)[dateStr] = rate;
                     }
-                    else
-                    if(!validateNB(rateStr))
-                        (*mapRet)[dateStr] = -2;
-                    (*mapRet)[dateStr] = -1;
+                    else {
+                        if(isNegative(rateStr))
+                            (*mapRet)[dateStr] = -3;
+                        else if(!validateNB(rateStr))
+                            (*mapRet)[dateStr] = -2;
+                        else
+                            (*mapRet)[dateStr] = -1;
+                    }
                 }
                 catch(const std::exception& e)
                 {
@@ -109,6 +126,7 @@ std::map<std::string,double> *inputCreate(std::string fileName) {
     return mapRet;
 }
 
+//for DEBUG
 void printDB(std::map<std::string, double> DB){
     std::map<std::string, double>::const_iterator it;
     for (it = DB.begin(); it != DB.end(); ++it) {

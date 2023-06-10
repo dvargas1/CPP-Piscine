@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef BITCOINEXCHANGE_CLASS
-#define BITOINEXCHANGE_CLASS
+#define BITCOINEXCHANGE_CLASS
 
 #include <map>
 #include <string>
@@ -22,6 +22,7 @@
 #include <ctime>
 #define BADINPUT -1
 #define TOOLARGE -2
+#define NEGATIVENB -3
 
 class BitcoinExchange {
 public:
@@ -33,6 +34,10 @@ public:
     void createDB();
     std::map<std::string, double> &getDB();
     void makeExchange(std::map<std::string, double> &input);
+    void validateString(std::string line);
+    void compareNPrint(std::string date, double valueDB, double valueInput);
+    bool dateDiff(std::string date1, std::string date2);
+    bool isNumber(const std::string& str);
     
 private:
     std::map<std::string, double> btcDb;
