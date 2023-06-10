@@ -44,15 +44,19 @@ int main(){
     else
         animal_array[j] = new Dog(b);       
     }
+
+    reinterpret_cast<Cat*>(animal_array[0])->getBrain()->setIdea("new idea from this specific CAT");
+    reinterpret_cast<Cat*>(animal_array[1])->getBrain()->setIdea("new idea from this specific DOG");
+
     std::cout<<std::endl;
     for (int j = 0; j < NB_OF_ANIMALS; j++) {
     if (j % 2 == 0) {
         std::cout<<"my number is "<<j<<" and my type is "<<animal_array[j]->getType()<<std::endl;
-        static_cast<Cat*>(animal_array[j])->getBrain()->brainDump();
+        reinterpret_cast<Cat*>(animal_array[j])->getBrain()->brainDump();
         std::cout<<"\n";
     } else {
         std::cout<<"my number is "<<j<<" and my type is "<<animal_array[j]->getType()<<std::endl;
-        static_cast<Dog*>(animal_array[j])->getBrain()->brainDump();
+        reinterpret_cast<Dog*>(animal_array[j])->getBrain()->brainDump();
         std::cout<<"\n";
     }
 }
