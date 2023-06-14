@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 20:37:37 by dvargas           #+#    #+#             */
-/*   Updated: 2023/06/13 22:49:27 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/06/14 08:25:08 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <stack>
+#include <cstdlib>
 
 class RPN {
 public:
@@ -24,18 +25,18 @@ public:
     RPN(RPN &cp);
     RPN operator=(RPN &cp);
     std::string getInput() const;
-    std::string getList() const;
     double getResult() const;
     std::stack<int> getStack() const;
-    void reverseStack();
-    void printStack();
 
 private:
     std::string input;
-    std::string operandList;
     std::stack<int> stack;
     int result;
-    void createStackAndList();
+    void checkInput();
+    void sum();
+    void minus();
+    void multi();
+    void division();
     void doTheMath();
 };
 

@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 20:42:17 by dvargas           #+#    #+#             */
-/*   Updated: 2023/06/13 22:57:17 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/06/14 08:25:17 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,16 @@
 
 RPN::RPN() : input(""), result(0) {}
 RPN::RPN(std::string input) : input(input), result(0) {
-    createStackAndList();
-    for(size_t i = 0; i < operandList.length(); ++i)
-        std::cout<< "Print1" << operandList[i] << std::endl;
-    printStack();
-    std::cout << "Now the final result ->";
+    checkInput();
     doTheMath();
 }
 RPN::~RPN() {};
-RPN::RPN(RPN &cp) : input(cp.getInput()), operandList(cp.getList()), result(cp.getResult()) {
+RPN::RPN(RPN &cp) : input(cp.getInput()), result(cp.getResult()) {
     stack = cp.stack;
 }
 RPN RPN::operator=(RPN &cp) {
     if(this != &cp) {
         input = cp.input;
-        operandList = cp.operandList;
         stack = cp.stack;
         result = cp.result;
     }
@@ -37,89 +32,86 @@ RPN RPN::operator=(RPN &cp) {
 std::string RPN::getInput() const { return input; }
 double RPN::getResult() const { return result; }
 std::stack<int> RPN::getStack() const {return stack; }
-std::string RPN::getList() const {return operandList; }
 
-void RPN::printStack() {
-    std::stack<int> tempStack = stack; // Cria uma cópia temporária da pilha
-
-    std::cout << "Conteúdo da pilha: ";
-
-    while (!tempStack.empty()) {
-        std::cout << tempStack.top() << " ";
-        tempStack.pop();
-    }
-    std::cout << std::endl;
-}
-
-void RPN::reverseStack() {
-    std::stack<int> tempStack;
-
-    while (!stack.empty()) {
-        tempStack.push(stack.top());
-        stack.pop();
-    }
-    stack = tempStack;
-}
-
-void RPN::createStackAndList() {
+void RPN::checkInput() {
     for (size_t i = 0; i < input.length(); ++i) {
         char c = input[i];
         if (isdigit(c)) {
-            stack.push(c - '0');  // Converte o dígito em número
+            if(isdigit(input[i + 1]))
+                throw std::range_error("this func accept onlny 0 - 9");
+            i++;
         } 
         else if (c == '+' || c == '-' || c == '*' || c == '/') {
-            operandList += c;
+            i++;
         }
-        else if (c == 'a') {
-            ++i;
+        else if (isspace(c)) {
+            continue;
         }
         else
-            operandList += 'a';
+            throw std::logic_error("DEU RUIM");
     }
-    reverseStack();
 }
 
+void RPN::sum() {
+    if(stack.size() < 2)
+        throw std::logic_error("teste");
+    int a = stack.top();
+    stack.pop();
+    int b = stack.top();
+    stack.pop(); 
+    stack.push(a + b);
+}
+
+void RPN::minus() {
+    if(stack.size() < 2)
+        throw std::logic_error("teste");
+    int a = stack.top();
+    stack.pop();
+    int b = stack.top();
+    stack.pop(); 
+    stack.push(b - a);  
+}
+
+void RPN::division() {
+    if(stack.size() < 2)
+        throw std::logic_error("teste");
+    int a = stack.top();
+    stack.pop();
+    int b = stack.top();
+    stack.pop(); 
+    stack.push(b / a);
+}
+
+void RPN::multi() {
+    if(stack.size() < 2)
+        throw std::logic_error("teste");
+    int a = stack.top();
+    stack.pop();
+    int b = stack.top();
+    stack.pop(); 
+    stack.push(a * b);
+}
+
+
 void RPN::doTheMath() {
-    while (!operandList.empty()) {
-        if (operandList.find('a')){
-            throw std::logic_error("DEU RUIM");
-            break;
+    std::string i = getInput();
+    std::string::iterator it = i.begin();
+    for(;it != i.end();++it) {
+        if(isdigit(*it)) {
+            std::string s(1, *it);
+            stack.push(atoi(s.c_str()));
         }
-        //std::cout << "\nNEXT -> " << std::endl;
-        char op = operandList[0];
-       // std::cout << op << std::endl;
-        operandList.erase(0, 1);
-        
-        int operand2 = stack.top();
-       // std::cout << operand2 << std::endl;
-        stack.pop();
-        
-        int operand1 = stack.top();
-        //std::cout << operand1 << std::endl;
-        stack.pop();
-        
-        int result;
-        switch (op) {
-            case '+':
-                result = operand2 + operand1;
-                break;
-            case '-':
-                result = operand2 - operand1;
-                break;
-            case '*':
-                result = operand2 * operand1;
-                break;
-            case '/':
-                result = operand2 / operand1;
-                break;
-            default:
-                std::cerr << "Operador inválido: " << op << std::endl;
-                return;
-        }
-        
-        stack.push(result);
+        if( *it == '+')
+            sum();
+        else if( *it == '-')
+            minus();
+        else if( *it == '/')
+            division();
+        else if( *it == '*' )
+            multi();
+        else if (*it == ' ')
+            continue;
     }
-    
     result = stack.top();
     stack.pop();
 }
