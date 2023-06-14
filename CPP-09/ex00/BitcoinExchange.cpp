@@ -12,20 +12,16 @@
 
 #include "BitcoinExchange.hpp"
 BitcoinExchange::~BitcoinExchange() {}
-BitcoinExchange::BitcoinExchange() : dbName("data.csv")
-{
+BitcoinExchange::BitcoinExchange() : dbName("data.csv") {
     createDB();
 }
-BitcoinExchange::BitcoinExchange(std::string file) : dbName(file)
-{
+BitcoinExchange::BitcoinExchange(std::string file) : dbName(file) 
     createDB();
 }
-BitcoinExchange::BitcoinExchange(BitcoinExchange const &cp) : dbName(cp.dbName)
-{
+BitcoinExchange::BitcoinExchange(BitcoinExchange const &cp) : dbName(cp.dbName) {
     btcDb = cp.btcDb;
 }
-BitcoinExchange BitcoinExchange::operator=(BitcoinExchange const &cp)
-{
+BitcoinExchange BitcoinExchange::operator=(BitcoinExchange const &cp) {
     if (this != &cp)
     {
         dbName = cp.dbName;
@@ -36,8 +32,7 @@ BitcoinExchange BitcoinExchange::operator=(BitcoinExchange const &cp)
 
 std::map<std::string, double> &BitcoinExchange::getDB() { return btcDb; }
 
-void BitcoinExchange::createDB()
-{
+void BitcoinExchange::createDB() {
     std::ifstream file(dbName.c_str());
     if (!file)
         throw std::invalid_argument("Invalid file name");
@@ -71,15 +66,13 @@ void BitcoinExchange::createDB()
     }
 }
 
-bool BitcoinExchange::isNumber(const std::string& str)
-{
+bool BitcoinExchange::isNumber(const std::string& str) {
     std::istringstream iss(str);
     double number;
     return (iss >> number) && (iss.eof());
 }
 
-void BitcoinExchange::validateString(std::string str)
-{
+void BitcoinExchange::validateString(std::string str) {
     if (str.size() < 11)
         throw std::length_error("String too small");
     if (str[4] != '-' || str[7] != '-')
@@ -90,7 +83,7 @@ void BitcoinExchange::validateString(std::string str)
     std::string nb;
     if (!(iss >> year >> separator >> month >> separator >> day >> separator >> nb))
         throw std::logic_error("Wrong string");
-    if ((year >= 0 && year <= 2022) && (month >= 1 && month <= 12) && 
+    if ((year >= 0 && year <= 9999) && (month >= 1 && month <= 12) && 
             (day >= 1 && day <= 31)) {
         if (!isNumber(nb))
             throw std::logic_error("Invalid number: " + nb);
@@ -99,8 +92,7 @@ void BitcoinExchange::validateString(std::string str)
     throw std::logic_error("Wrong string");
 }
 
-void BitcoinExchange::compareNPrint(std::string date, double valueDB, double valueInput)
-{
+void BitcoinExchange::compareNPrint(std::string date, double valueDB, double valueInput) {
     if (valueInput == BADINPUT)
         std::cout << "Error: bad input => " << date << std::endl;
     else if (valueInput == TOOLARGE)
@@ -114,8 +106,7 @@ void BitcoinExchange::compareNPrint(std::string date, double valueDB, double val
     }
 }
 
-bool BitcoinExchange::dateDiff(std::string date1, std::string date2)
-{
+bool BitcoinExchange::dateDiff(std::string date1, std::string date2) {
     std::tm tm1 = {};
     std::tm tm2 = {};
     sscanf(date1.c_str(), "%d-%d-%d", &tm1.tm_year, &tm1.tm_mon, &tm1.tm_mday);
@@ -125,48 +116,43 @@ bool BitcoinExchange::dateDiff(std::string date1, std::string date2)
     return time1 < time2;
 }
 
-void BitcoinExchange::makeExchange(std::map<std::pair<std::string, int>, double> &input)
-{
+void BitcoinExchange::makeExchange(std::map<std::pair<int, std::string>, double> &input) {
     std::map<std::string, double>::iterator itDb = btcDb.begin();
-    std::map<std::pair<std::string, int>, double>::iterator itInput = input.begin();
+    std::map<std::pair<int, std::string>, double>::iterator itInput = input.begin();
 
     int inputSize = input.size();
     int i = 0;
-    while (i <= inputSize)
+    while (i < inputSize)
     {
-        std::string date = itInput->first.first;
+        std::string date = itInput->first.second;
         date.erase(date.find_last_not_of(" ") + 1);
         double valueInput = itInput->second;
-        double valueItdb = itDb->second;
         itDb = btcDb.find(date);
+        double valueItdb = itDb->second;
         if (itDb != btcDb.end())
-        {
             compareNPrint(date, valueItdb, valueInput);
-        }
         else
         {
             if(valueInput < 0)
                 compareNPrint(date, valueItdb, valueInput);
-   //         itDb = btcDb.lower_bound(date);
-            //if (itDb == input.begin())
-            //    compareNPrint(date, valueInput, valueInput);
-            //else if (itDb == input.end())
-            //{
-            //    --itInput;
-            //    compareNPrint(date, itDb->second, valueInput);
-            //}
-            //else
-            //{
-            //    std::map<std::string, double>::const_iterator itLow = itDb;
-            //    --itLow;
-            //    std::string lowerDate = itLow->first;
-            //    std::string upperDate = itDb->first;
-//
-  //              if (dateDiff(lowerDate, upperDate) == true)
-    //                compareNPrint(date, itLow->second, valueInput);
-      //          else
-        //            compareNPrint(date, itInput->second, valueInput);
-            //}
+            else {
+                itDb = btcDb.lower_bound(date);
+                valueItdb = itDb->second;
+                if(itDb == btcDb.begin())
+                    compareNPrint(date, valueItdb, valueInput);
+                else if(itDb == btcDb.end())
+                    compareNPrint(date, valueItdb, valueInput);
+                else{
+                    std::map<std::string, double>::const_iterator itLow = itDb;
+                    --itLow;
+                    std::string lowerDate = itLow->first;
+                    std::string upperDate = itDb->first;
+                    if (dateDiff(lowerDate, upperDate) == true)
+                        compareNPrint(date, itLow->second, valueInput);
+                    else
+                        compareNPrint(date, itInput->second, valueInput);
+                }
+         }
         }
         ++itInput;
         i++;

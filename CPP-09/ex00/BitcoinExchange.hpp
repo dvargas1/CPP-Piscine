@@ -34,7 +34,7 @@ public:
     BitcoinExchange operator=(BitcoinExchange const &cp);
     void createDB();
     std::map<std::string, double> &getDB();
-    void makeExchange(std::map<std::pair<std::string, int>, double> &input);
+    void makeExchange(std::map<std::pair<int, std::string>, double> &input);
     void validateString(std::string line);
     void compareNPrint(std::string date, double valueDB, double valueInput);
     bool dateDiff(std::string date1, std::string date2);

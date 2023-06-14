@@ -13,22 +13,20 @@
 #include "BitcoinExchange.hpp"
 bool isNegative(const std::string &str);
 void printDB(std::map<std::string, double> DB);
-std::map<std::pair<std::string, int>, double> *inputCreate(std::string fileName);
+std::map<std::pair<int, std::string>, double> *inputCreate(std::string fileName);
 int ft_help();
 void printDBDOUBLE(std::map<std::pair<std::string, int>, double> DB);
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     if (argc != 2)
         return ft_help();
-    std::map<std::pair<std::string, int>, double> *input = inputCreate(argv[1]);
+    std::map<std::pair<int, std::string>, double> *input = inputCreate(argv[1]);
     BitcoinExchange bitCoinTrader;
     //printDBDOUBLE(*input);
     bitCoinTrader.makeExchange(*input);
     delete input;
 }
 
-int ft_help()
-{
+int ft_help() {
     std::cout << "Usage: ./btc \"Your input file\"" << std::endl;
     std::cout << "the input file should be formatted like this:" << std::endl;
     std::cout << "date | value" << std::endl;
@@ -37,47 +35,37 @@ int ft_help()
     return 1;
 }
 
-bool validateNB(const std::string &str)
-{
+bool validateNB(const std::string &str, int flag) {
     if(isNegative(str))
         return false;
     if (str.find(".") != std::string::npos)
     {
-        try
-        {
-            std::atof(str.c_str());
-        }
-        catch(...)        
-        {
+        if(std::atof(str.c_str()) == 0)
             return false;
-        }
     }
     else
     {
-        try
-        {
-            int f = std::atoi(str.c_str());
-            if (f < 0 || f > 1000)
-                return false;
-        }
-        catch(...)
-        {
+        int f = std::atoi(str.c_str());
+        if (f < 0 || f > 1000)
             return false;
+    }
+    if(flag == 1) {
+        for(size_t i = 0; i < str.length() ; i++){
+            if(!std::isdigit(str[i]) && str[i] != '.')
+                return false;
         }
     }
     return true;
 }
 
-bool isNegative(const std::string &str)
-{
+bool isNegative(const std::string &str) {
     float f = std::atof(str.c_str());
     if (f < 0)
         return true;
     return false;
 }
 
-bool validateString(const std::string &str)
-{
+bool validateString(const std::string &str) {
     if (str.size() < 11)
         return false;
     if (str[4] != '-' || str[7] != '-')
@@ -88,15 +76,14 @@ bool validateString(const std::string &str)
     std::string nb;
     if (!(iss >> year >> separator >> month >> separator >> day >> separator >> nb))
         return false;
-    if ((year >= 0 && year <= 2022) && (month >= 1 && month <= 12) && (day >= 1 && day <= 31) && validateNB(nb))
+    if ((year >= 0 && year <= 9999) && (month >= 1 && month <= 12) && (day >= 1 && day <= 31) && validateNB(nb, 1))
         return true;
 
     return false;
 }
 
-std::map<std::pair<std::string, int>, double> *inputCreate(std::string fileName)
-{
-    std::map<std::pair<std::string, int>, double> *mapRet = new std::map<std::pair<std::string, int>, double>;
+std::map<std::pair<int, std::string>, double> *inputCreate(std::string fileName) {
+    std::map<std::pair<int, std::string>, double> *mapRet = new std::map<std::pair<int, std::string>, double>;
     std::ifstream file(fileName.c_str());
     if (!file)
         throw std::invalid_argument("Invalid file name");
@@ -117,15 +104,15 @@ std::map<std::pair<std::string, int>, double> *inputCreate(std::string fileName)
                 {
                     if (validateString(line)) {
                         double rate = std::atof(rateStr.c_str());
-                        (*mapRet)[std::make_pair(dateStr, uniqueNB++)] = rate;
+                        (*mapRet)[std::make_pair(uniqueNB++, dateStr)] = rate;
                     }
                     else {
                         if (isNegative(rateStr))
-                            (*mapRet)[std::make_pair(dateStr, uniqueNB++)] = -3;
-                        else if (!validateNB(rateStr))
-                            (*mapRet)[std::make_pair(dateStr, uniqueNB++)] = -2;
+                            (*mapRet)[std::make_pair(uniqueNB++, dateStr)] = -3;
+                        else if (!validateNB(rateStr, 0))
+                            (*mapRet)[std::make_pair(uniqueNB++, dateStr)] = -2;
                         else
-                            (*mapRet)[std::make_pair(dateStr, uniqueNB++)] = -1;
+                            (*mapRet)[std::make_pair(uniqueNB++, dateStr)] = -1;
                     }
                 }
                 catch (const std::exception &e)
@@ -136,7 +123,7 @@ std::map<std::pair<std::string, int>, double> *inputCreate(std::string fileName)
         }
         else {
             if(!line.empty()) {
-                (*mapRet)[std::make_pair(dateStr, uniqueNB++)] = -1;
+                (*mapRet)[std::make_pair(uniqueNB++, dateStr)] = -1;
             }
         }
     }
@@ -144,8 +131,7 @@ std::map<std::pair<std::string, int>, double> *inputCreate(std::string fileName)
 }
 
 // for DEBUG
-void printDB(std::map<std::string, double> DB)
-{
+void printDB(std::map<std::string, double> DB) {
     std::map<std::string, double>::const_iterator it;
     for (it = DB.begin(); it != DB.end(); ++it)
     {
@@ -153,8 +139,7 @@ void printDB(std::map<std::string, double> DB)
     }
 }
 
-void printDBDOUBLE(std::map<std::pair<std::string, int>, double> DB)
-{
+void printDBDOUBLE(std::map<std::pair<std::string, int>, double> DB) {
     std::map<std::pair<std::string, int>, double>::const_iterator it;
     for (it = DB.begin(); it != DB.end(); ++it)
     {
