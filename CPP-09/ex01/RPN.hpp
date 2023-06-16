@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 20:37:37 by dvargas           #+#    #+#             */
-/*   Updated: 2023/06/14 08:25:08 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/06/16 07:56:39 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,18 @@ public:
     RPN(std::string input);
     ~RPN();
     RPN(RPN &cp);
-    RPN operator=(RPN &cp);
+    RPN& operator=(RPN &cp);
     std::string getInput() const;
     double getResult() const;
     std::stack<int> getStack() const;
+    class InputError: public std::exception {
+		public:
+			virtual const char* what() const throw() { return "Please, use only numbers between 0 - 9 and valid operators + - * /"; }
+	};
+    class StackError: public std::exception {
+		public:
+			virtual const char* what() const throw() { return "Stack size Error"; }
+	};
 
 private:
     std::string input;

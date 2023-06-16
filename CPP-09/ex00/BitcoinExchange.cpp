@@ -15,13 +15,13 @@ BitcoinExchange::~BitcoinExchange() {}
 BitcoinExchange::BitcoinExchange() : dbName("data.csv") {
     createDB();
 }
-BitcoinExchange::BitcoinExchange(std::string file) : dbName(file) 
+BitcoinExchange::BitcoinExchange(std::string file) : dbName(file) {
     createDB();
 }
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &cp) : dbName(cp.dbName) {
     btcDb = cp.btcDb;
 }
-BitcoinExchange BitcoinExchange::operator=(BitcoinExchange const &cp) {
+BitcoinExchange& BitcoinExchange::operator=(BitcoinExchange const &cp) {
     if (this != &cp)
     {
         dbName = cp.dbName;

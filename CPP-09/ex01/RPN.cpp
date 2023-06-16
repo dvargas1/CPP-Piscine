@@ -6,7 +6,7 @@
 /*   By: dvargas <dvargas@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 20:42:17 by dvargas           #+#    #+#             */
-/*   Updated: 2023/06/14 08:25:17 by dvargas          ###   ########.fr       */
+/*   Updated: 2023/06/16 07:45:16 by dvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ RPN::~RPN() {};
 RPN::RPN(RPN &cp) : input(cp.getInput()), result(cp.getResult()) {
     stack = cp.stack;
 }
-RPN RPN::operator=(RPN &cp) {
+RPN& RPN::operator=(RPN &cp) {
     if(this != &cp) {
         input = cp.input;
         stack = cp.stack;
@@ -38,7 +38,7 @@ void RPN::checkInput() {
         char c = input[i];
         if (isdigit(c)) {
             if(isdigit(input[i + 1]))
-                throw std::range_error("this func accept onlny 0 - 9");
+                throw InputError();
             i++;
         } 
         else if (c == '+' || c == '-' || c == '*' || c == '/') {
@@ -48,13 +48,13 @@ void RPN::checkInput() {
             continue;
         }
         else
-            throw std::logic_error("DEU RUIM");
+            throw InputError();
     }
 }
 
 void RPN::sum() {
     if(stack.size() < 2)
-        throw std::logic_error("teste");
+        throw StackError();
     int a = stack.top();
     stack.pop();
     int b = stack.top();
@@ -64,7 +64,7 @@ void RPN::sum() {
 
 void RPN::minus() {
     if(stack.size() < 2)
-        throw std::logic_error("teste");
+        throw StackError();
     int a = stack.top();
     stack.pop();
     int b = stack.top();
@@ -74,7 +74,7 @@ void RPN::minus() {
 
 void RPN::division() {
     if(stack.size() < 2)
-        throw std::logic_error("teste");
+        throw StackError();
     int a = stack.top();
     stack.pop();
     int b = stack.top();
@@ -84,7 +84,7 @@ void RPN::division() {
 
 void RPN::multi() {
     if(stack.size() < 2)
-        throw std::logic_error("teste");
+        throw StackError();
     int a = stack.top();
     stack.pop();
     int b = stack.top();

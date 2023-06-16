@@ -31,7 +31,7 @@ public:
     ~BitcoinExchange();
     BitcoinExchange(std::string file);
     BitcoinExchange (BitcoinExchange const &cp);
-    BitcoinExchange operator=(BitcoinExchange const &cp);
+    BitcoinExchange& operator=(BitcoinExchange const &cp);
     void createDB();
     std::map<std::string, double> &getDB();
     void makeExchange(std::map<std::pair<int, std::string>, double> &input);
