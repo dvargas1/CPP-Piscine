@@ -28,6 +28,7 @@ int main () {
 }
 
 {
+	std::cout << "\n =============== new test ===================== " <<std::endl;
 	std::cout << "\n Limit " <<std::endl;
 	Span sp = Span(10);
 	try
@@ -43,6 +44,7 @@ int main () {
 }
 
 {
+	std::cout << "\n =============== new test ===================== " <<std::endl;
 	std::cout << "\n Fill " <<std::endl;
 	Span sp = Span(1000);
 	try
@@ -59,6 +61,7 @@ int main () {
 }
 
 {
+	std::cout << "\n =============== new test ===================== " <<std::endl;
 	std::cout << "\n Fill Number Range " <<std::endl;
 	std::vector<int> toAdd;
 	for(int i = 0; i < 10; i++)

@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <vector>
 
 template<typename T>
 class MutantStack : public std::stack<T> {

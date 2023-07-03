@@ -44,7 +44,15 @@ int main(void)
 			std::cout << *it << std::endl;
 			++it;
 		}
-		std::stack<int> s(mstack);
+    while (!mstack.empty()) {
+        mstack.pop();
+    }
+
+    // Verificar se a stack está vazia
+    if (mstack.empty()) {
+        std::cout << "Stack is empty." << std::endl;
+    }
+
 	}
 	{
 		std::cout << "\n\nSame code with List container" << std::endl;
@@ -53,7 +61,7 @@ int main(void)
 		mstack.push_back(5);
 		mstack.push_back(17);
         
-		std::cout << mstack.back() << std::endl;
+		std::cout << mstack.front() << std::endl;
 
 		mstack.pop_back();
 
@@ -76,6 +84,49 @@ int main(void)
 			std::cout << *it << std::endl;
 			++it;
 		}
+
+		mstack.clear();
+
+    	if (mstack.empty()) {
+        	std::cout << "List is empty." << std::endl;
+   		}
+	}
+		{
+		std::cout << "\n\nSame code with vector container" << std::endl;
+		std::vector<int>		mstack;
+
+		mstack.push_back(5);
+		mstack.push_back(17);
+        
+		std::cout << mstack.back() << std::endl;
+
+		mstack.pop_back();
+
+		std::cout << mstack.size() << std::endl;
+
+		mstack.push_back(3);
+		mstack.push_back(5);
+		mstack.push_back(737);
+		//[...]
+		mstack.push_back(0);
+        
+		std::vector<int>::iterator it = mstack.begin();
+		std::vector<int>::iterator ite = mstack.end();
+
+		++it;
+		--it;
+        
+		while (it != ite)
+		{
+			std::cout << *it << std::endl;
+			++it;
+		}
+
+		mstack.clear();
+
+    	if (mstack.empty()) {
+        	std::cout << "Vector is empty." << std::endl;
+   		}
 	}
 	return 0;
 }
