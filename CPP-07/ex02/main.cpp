@@ -13,6 +13,9 @@
 #include "Array.hpp"
 
 int main(){
+	
+	Array<int> empty;
+
 	Array<int> a1(2);
 	a1[0] = 42;
 	a1[1] = 21;
@@ -33,7 +36,7 @@ int main(){
 	}
 
 
-	std::cout << "\ncreating a2, an copi from a1 using atribute constructor of class" << std::endl;
+	std::cout << "\ncreating a2, an copy from a1 using atribute constructor of class" << std::endl;
 	Array<int> a2 = a1;
 	std::cout << "size of array  a: " << a1.size() << std::endl;
 	for(int i = 0 ; i < a2.size(); i++)
