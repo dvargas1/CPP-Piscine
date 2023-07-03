@@ -15,8 +15,15 @@
 #include <list>
 
 int main(int argc, char **argv){
+	char * glass = argv[1];
 	if(argc != 2)
-		return 1;
+		std::cout << "usage: choose a number to be search in a vector and list containers" << std::endl;
+    for (int i = 0; glass[i] != '\0'; i++) {
+        if (!std::isdigit(glass[i])){ 
+			std::cout << "please, input a number" << std::endl;
+			return 42;
+			}
+        }
 	int nb = atoi(argv[1]);
 	std::vector<int> v1;
 	v1.push_back(8);
@@ -24,13 +31,11 @@ int main(int argc, char **argv){
 	v1.push_back(10);
 	v1.push_back(5);
 	try{
-		std::vector<int>::iterator it = easyfind(v1, nb);
-		if(it != v1.end())
-			std::cout << "The element has been found in vector " << std::endl;
+		easyfind(v1, nb);
 	}
-	catch(...)
+	catch(const std::exception& e)
 	{
-		std::cerr << "cant find element in array" << std::endl;
+		std::cerr << e.what() << '\n';
 	}
 	std::list<int> l1;
 	l1.push_back(4);
@@ -39,13 +44,11 @@ int main(int argc, char **argv){
 	l1.push_back(1);
 	try
 	{
-		std::list<int>::iterator it2 = easyfind(l1, nb);
-		if(it2 != l1.end())
-			std::cout << "\nThe element has been found in list" << std::endl;
+		easyfind(l1, nb);
 	}
-	catch(...)
+	catch(const std::exception& e)
 	{
-		std::cerr << "\ncant find element in list" << std::endl;
+		std::cerr << e.what() << '\n';
 	}
 }
 

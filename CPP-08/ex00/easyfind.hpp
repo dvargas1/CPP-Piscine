@@ -18,12 +18,14 @@
 #include <stdexcept>
 
 template<typename T>
-typename T::iterator easyfind(T &container, int data) {
+void easyfind(T &container, int data) {
 	typename T::iterator i;
 	i = std::find(container.begin(), container.end(), data);
-	 if(i != container.end())
-		 return i;
-	throw std::out_of_range("File is out of range");
+	if(i != container.end()) {
+		std::cout << "The element is in position " << std::distance(container.begin(), i) << std::endl;
+		return;
+	}
+	throw std::out_of_range("Number Not found in container");
 }
 
 #endif
